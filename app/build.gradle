@@ -28,4 +28,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.github.arimorty:floatingsearchview:2.0.3'
+    compile "com.splitwise:tokenautocomplete:2.0.8@aar"
 }
+

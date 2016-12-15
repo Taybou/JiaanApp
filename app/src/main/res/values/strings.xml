@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">JiaanApp</string>
+    <string name="title_activity_autocomplete_ingredient">AutocompleteIngredient</string>
 </resources>
