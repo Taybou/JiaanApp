@@ -11,21 +11,20 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".MainActivity"
-            >
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".IngredientAuto"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.FixedSize">
-
-        </activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.FixedSize"></activity>
+        <activity
+            android:name=".RecipesDetails"
+            android:label="@string/title_activity_recipes_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

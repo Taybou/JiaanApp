@@ -5,7 +5,10 @@ import android.text.TextUtils;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+
+import dz.btesto.upmc.jiaanapp.utils.LruBitmapCache;
 
 /**
  * Created by besto on 11/12/16.
@@ -16,6 +19,7 @@ public class AppController extends Application{
     public static final String TAG = "BTEST DEFAULT TAG";
 
     private RequestQueue mRequestQueue;
+    private ImageLoader mImageLoader;
 
     private static AppController mInstance;
 
@@ -51,6 +55,15 @@ public class AppController extends Application{
         if (mRequestQueue != null) {
             mRequestQueue.cancelAll(tag);
         }
+    }
+
+    public ImageLoader getImageLoader() {
+        getRequestQueue();
+        if (mImageLoader == null) {
+            mImageLoader = new ImageLoader(this.mRequestQueue,
+                    new LruBitmapCache());
+        }
+        return this.mImageLoader;
     }
 }
 

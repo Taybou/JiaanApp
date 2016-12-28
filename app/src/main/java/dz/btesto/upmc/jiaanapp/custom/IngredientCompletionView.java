@@ -6,6 +6,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.tokenautocomplete.TokenCompleteTextView;
@@ -29,6 +30,7 @@ public class IngredientCompletionView extends TokenCompleteTextView<Ingredients>
         LayoutInflater l =  LayoutInflater.from(getContext());
         TextView view = (TextView) l.inflate(R.layout.ingredient, (ViewGroup) getParent(), false);
         view.setText(ingredients.getName());
+
 
         return view;
     }

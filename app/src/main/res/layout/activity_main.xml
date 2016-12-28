@@ -26,4 +26,18 @@
        android:gravity="bottom"
        android:layout_marginTop="400dp"
        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="autocomlete"
+        android:id="@+id/autoBtn"
+        android:gravity="bottom|right"
+
+        android:layout_alignBaseline="@+id/fetchBtn"
+        android:layout_alignBottom="@+id/fetchBtn"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="45dp"
+        android:layout_marginEnd="45dp" />
 </RelativeLayout>

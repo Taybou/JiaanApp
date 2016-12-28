@@ -1,14 +1,17 @@
 package dz.btesto.upmc.jiaanapp;
 
 import android.app.Activity;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.tokenautocomplete.FilteredArrayAdapter;
 import com.tokenautocomplete.TokenCompleteTextView;
 
@@ -68,7 +71,14 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
 
                 Ingredients p = getItem(position);
                 ((TextView) convertView.findViewById(R.id.name)).setText(p.getName());
-                ((TextView) convertView.findViewById(R.id.linkimage)).setText(p.getImageUrl());
+              //  ((TextView) convertView.findViewById(R.id.linkimage)).setText(p.getImageUrl());
+
+//                Glide
+//                        .with(getContext())
+//                        .load("https://spoonacular.com/cdn/ingredients_100x100/"+p.getImageUrl())
+//
+//                        .into(inggredientImage);
+
 
                 return convertView;
             }
@@ -123,7 +133,7 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
         for(int i=0;i<mainObject.length();i++){
             String name =  mainObject.getJSONObject(i).getString("name");
             String image = mainObject.getJSONObject(i).getString("image");
-            Ingredients ingredients = new Ingredients(i,name,image);
+            Ingredients ingredients = new Ingredients(i,image,name);
             ingredientsList.add(ingredients);
         }
 
