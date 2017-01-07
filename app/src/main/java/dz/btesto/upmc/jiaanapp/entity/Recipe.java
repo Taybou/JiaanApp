@@ -1,12 +1,13 @@
 package dz.btesto.upmc.jiaanapp.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by besto on 11/12/16.
  */
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     private int recipeId;
     private String title;
@@ -15,6 +16,10 @@ public class Recipe {
     private int cookingMinutes;
     private String imageUrl;
     private List<Ingredients> ingredientsList;
+
+    public Recipe() {
+
+    }
 
     public Recipe(int recipeId, String title, String instructions, int preparationMinutes, int cookingMinutes, String imageUrl, List<Ingredients> ingredientsList) {
         this.recipeId = recipeId;

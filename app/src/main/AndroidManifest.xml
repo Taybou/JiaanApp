@@ -20,6 +20,13 @@
             </intent-filter>
 
         </activity>
+        <activity
+            android:name=".IngredientAuto"
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.FixedSize"></activity>
+        <activity
+            android:name=".RecipesDetails"
+            android:label="@string/title_activity_recipes_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
