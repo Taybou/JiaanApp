@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView jsonRes ;
     private Button fetchBtn ;
     private Button autoBtn;
+    private ProgressBar spinner;
 
     final ServicesAPI servicesAPI = new ServicesAPI();
     @Override
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
         fetchBtn = (Button) findViewById(R.id.fetchBtn);
         autoBtn= (Button) findViewById(R.id.autoBtn);
 
+
+
         final Intent intent = new Intent(MainActivity.this, IngredientAuto.class);
 
         final Intent intent2 = new Intent(MainActivity.this, RecipesDetails.class);
@@ -40,11 +44,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-            //    servicesAPI.getRecipesByIngredientss("apples,flour,sugar");
 
-             //   Log.d("Canal", recipe.getImageUrl());
                 intent2.putExtra("recipeID",  582367);
                 startActivity(intent2);
+
+
             }
         });
 

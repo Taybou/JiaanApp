@@ -40,4 +40,13 @@
         android:layout_alignParentEnd="true"
         android:layout_marginRight="45dp"
         android:layout_marginEnd="45dp" />
+
+    <ProgressBar android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:progressDrawable="@drawable/circular_progress_bar"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>

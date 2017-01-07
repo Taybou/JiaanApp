@@ -37,7 +37,7 @@ public class IngredientCompletionView extends TokenCompleteTextView<Ingredients>
 
     @Override
     protected Ingredients defaultObject(String completionText) {
-        Ingredients ingredients = new Ingredients(1,"i","o");
+        Ingredients ingredients = new Ingredients(1,"i","o",true);
         return ingredients;
     }
 }

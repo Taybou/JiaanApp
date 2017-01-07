@@ -36,7 +36,6 @@ public class ServicesAPI {
 
     private static final String TAG = "Json-Respons";
     private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10";
-   // private static final String recipeByIngredientsURl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=30&ranking=";
     private String jsonResponse;
     public int successCount=0;
     private int errorCount=0;
@@ -73,7 +72,7 @@ public class ServicesAPI {
                                             String inggredientImage = obj.getJSONObject(i).getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
                                             String name = obj.getJSONObject(i).getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
                                             Log.d("INGREDIENT-NAME----", name);
-                                            Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
+                                            Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name,true);
                                             ingredientsList.add(ingredients);
 
                                         }
@@ -241,9 +240,6 @@ public class ServicesAPI {
 
                                         Log.d("Volley-succes", String.valueOf(successCount));
 
-
-//                                        try {
-//
                                             Log.d(TAG, response.toString());
 
                                         try {
@@ -252,36 +248,6 @@ public class ServicesAPI {
                                             e.printStackTrace();
                                         }
 
-//                                            int recipeId = response.getInt("id");
-//                                            String title = response.optString("title", "N/A");
-//                                            String instructions = response.optString("instructions", "N/A");
-//                                            int preparationMinutes = response.optInt("preparationMinutes", 0);
-//                                            int cookingMinutes = response.optInt("cookingMinutes", 0);
-//                                            String imageUrl = response.optString("image", "http/null");
-//                                            Log.d("IMAGE-LINK----", imageUrl);
-//                                            for (int j = 0; j < response.getJSONArray("extendedIngredients").length(); j++) {
-//
-//                                                int ingredientId = response.getJSONArray("extendedIngredients").getJSONObject(j).getInt("id");
-//                                                String inggredientImage = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
-//                                                String name = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
-//                                                Log.d("INGREDIENT-NAME----", name);
-//                                                Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
-//                                                ingredientsList.add(ingredients);
-//
-//                                            }
-//
-//                                            ;
-//                                            recipe.setCookingMinutes(cookingMinutes);
-//                                            recipe.setImageUrl(imageUrl);
-//                                            recipe.setIngredientsList(ingredientsList);
-//                                            recipe.setTitle(title);
-//                                            recipe.setPreparationMinutes(preparationMinutes);
-//                                            recipe.setInstructions(instructions);
-//                                            Log.d("Object-Recipe", recipe.getImageUrl());
-
-//                                        } catch (JSONException e1) {
-//                                            e1.printStackTrace();
-//                                        }
                                         try {
                                             Log.d(TAG + "Object", response.getString("sourceUrl"));
                                         } catch (JSONException e1) {
@@ -327,49 +293,7 @@ public class ServicesAPI {
         return recipe;
     }
 
-    public Recipe useData(int idRecipe) {
 
-        final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
-        final Recipe recipe = new Recipe();
-
-        getRecipeDetails(idRecipe, new DataCallback() {
-            @Override
-            public void onSuccess(JSONObject response) throws JSONException {
-
-
-                int recipeId = response.getInt("id");
-                                            String title = response.optString("title", "N/A");
-                                            String instructions = response.optString("instructions", "N/A");
-                                            int preparationMinutes = response.optInt("preparationMinutes", 0);
-                                            int cookingMinutes = response.optInt("cookingMinutes", 0);
-                                            String imageUrl = response.optString("image", "http/null");
-                                            Log.d("IMAGE-LINK----", imageUrl);
-                                            for (int j = 0; j < response.getJSONArray("extendedIngredients").length(); j++) {
-
-                                                int ingredientId = response.getJSONArray("extendedIngredients").getJSONObject(j).getInt("id");
-                                                String inggredientImage = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
-                                                String name = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
-                                                Log.d("INGREDIENT-NAME----", name);
-                                                Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
-                                                ingredientsList.add(ingredients);
-
-                                            }
-
-                                            ;
-                                            recipe.setCookingMinutes(cookingMinutes);
-                                            recipe.setImageUrl(imageUrl);
-                                            recipe.setIngredientsList(ingredientsList);
-                                            recipe.setTitle(title);
-                                            recipe.setPreparationMinutes(preparationMinutes);
-                                            recipe.setInstructions(instructions);
-                Log.d("recipetest", String.valueOf(recipe.getCookingMinutes()));
-                Log.d("time",String.valueOf(recipe.getCookingMinutes()) +"----"+ String.valueOf(recipe.getPreparationMinutes()) );
-                successCount++;
-                Log.d("Besto",String.valueOf(successCount));
-            }
-        });
-        return recipe;
-    }
 
 
 

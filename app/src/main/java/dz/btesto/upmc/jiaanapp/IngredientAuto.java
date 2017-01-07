@@ -133,7 +133,7 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
         for(int i=0;i<mainObject.length();i++){
             String name =  mainObject.getJSONObject(i).getString("name");
             String image = mainObject.getJSONObject(i).getString("image");
-            Ingredients ingredients = new Ingredients(i,image,name);
+            Ingredients ingredients = new Ingredients(i,image,name,true);
             ingredientsList.add(ingredients);
         }
 
