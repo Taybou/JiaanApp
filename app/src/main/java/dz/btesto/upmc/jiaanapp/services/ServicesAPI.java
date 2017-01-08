@@ -36,15 +36,15 @@ public class ServicesAPI {
 
     private static final String TAG = "Json-Respons";
     private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10";
-   // private static final String recipeByIngredientsURl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=30&ranking=";
+    // private static final String recipeByIngredientsURl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=30&ranking=";
     private String jsonResponse;
-    public int successCount=0;
-    private int errorCount=0;
+    public int successCount = 0;
+    private int errorCount = 0;
 
     /**
      * Method to make json object request where json response starts wtih {
      */
-    public List<Recipe> getRandomRecipes() {
+    public List<Recipe> getRandomRecipes(final DataCallback callback) {
         final List<Recipe> recipes = new ArrayList<Recipe>();
         final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
         JsonObjectRequest jsonObjReq = new JsonObjectRequest
@@ -57,34 +57,10 @@ public class ServicesAPI {
                             public void onResponse(JSONObject response) {
                                 Log.d(TAG, response.toString());
 
+
+
                                 try {
-                                    JSONArray obj = response.getJSONArray("recipes");
-                                    for (int i = 0; i < obj.length(); i++) {
-                                        int recipeId = obj.getJSONObject(i).getInt("id");
-                                        String title = obj.getJSONObject(i).optString("title", "N/A");
-                                        String instructions = obj.getJSONObject(i).optString("instructions", "N/A");
-                                        int preparationMinutes = obj.getJSONObject(i).optInt("preparationMinutes", 0);
-                                        int cookingMinutes = obj.getJSONObject(i).optInt("cookingMinutes", 0);
-                                        String imageUrl = obj.getJSONObject(i).optString("image", null);
-                                        Log.d("IMAGE-LINK----", imageUrl);
-                                        for (int j = 0; j < obj.getJSONObject(i).getJSONArray("extendedIngredients").length(); j++) {
-
-                                            int ingredientId = obj.getJSONObject(i).getJSONArray("extendedIngredients").getJSONObject(j).getInt("id");
-                                            String inggredientImage = obj.getJSONObject(i).getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
-                                            String name = obj.getJSONObject(i).getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
-                                            Log.d("INGREDIENT-NAME----", name);
-                                            Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
-                                            ingredientsList.add(ingredients);
-
-                                        }
-
-                                        ;
-
-                                        Recipe recipe = new Recipe(recipeId, title, instructions, preparationMinutes, cookingMinutes, imageUrl, ingredientsList);
-                                        recipes.add(recipe);
-                                        Log.d("REcipe-SIZE----", String.valueOf(recipes.size()));
-                                    }
-                                    Log.d(TAG + "Object", obj.getJSONObject(0).getString("sourceUrl"));
+                                    callback.onSuccess(response);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
@@ -133,8 +109,8 @@ public class ServicesAPI {
                 .appendQueryParameter("fillIngredients", "false")
                 .appendQueryParameter("ingredients", ingredients)
                 .appendQueryParameter("limitLicense", "false")
-                .appendQueryParameter("number","20")
-                .appendQueryParameter("ranking","1");
+                .appendQueryParameter("number", "20")
+                .appendQueryParameter("ranking", "1");
 
         String recipeByIngredientsURl = builder.build().toString();
 
@@ -159,9 +135,9 @@ public class ServicesAPI {
                                     for (int i = 0; i < obj.length(); i++) {
                                         int recipeId = obj.getJSONObject(i).getInt("id");
                                         String title = obj.getJSONObject(i).optString("title", "N/A");
-                                      //  String instructions = obj.getJSONObject(i).optString("instructions", "N/A");
-                                      //  int preparationMinutes = obj.getJSONObject(i).optInt("preparationMinutes", 0);
-                                     //   int cookingMinutes = obj.getJSONObject(i).optInt("cookingMinutes", 0);
+                                        //  String instructions = obj.getJSONObject(i).optString("instructions", "N/A");
+                                        //  int preparationMinutes = obj.getJSONObject(i).optInt("preparationMinutes", 0);
+                                        //   int cookingMinutes = obj.getJSONObject(i).optInt("cookingMinutes", 0);
                                         String imageUrl = obj.getJSONObject(i).optString("image", null);
                                         String likes = obj.getJSONObject(i).optString("aggregateLikes", "0");
                                         Log.d("IMAGE-LINK----", imageUrl);
@@ -211,7 +187,7 @@ public class ServicesAPI {
         return recipes;
     }
 
-    public Recipe getRecipeDetails(int idRecipe,final DataCallback callback) {
+    public Recipe getRecipeDetails(int idRecipe, final DataCallback callback) {
         final Recipe recipe = new Recipe();
 
         final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
@@ -225,32 +201,31 @@ public class ServicesAPI {
                 .appendQueryParameter("includeNutrition", "false")
         ;
 
-        String  recipeByIngredientsURl = builder.build().toString();
+        String recipeByIngredientsURl = builder.build().toString();
 
 
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest
+                (Request.Method.GET,
+                        recipeByIngredientsURl,
+                        "",
+                        new Response.Listener<JSONObject>() {
 
-                JsonObjectRequest jsonObjReq = new JsonObjectRequest
-                        (Request.Method.GET,
-                                recipeByIngredientsURl,
-                                "",
-                                new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                Log.d(TAG, response.toString());
 
-                                    @Override
-                                    public void onResponse(JSONObject response) {
-                                        Log.d(TAG, response.toString());
-
-                                        Log.d("Volley-succes", String.valueOf(successCount));
+                                Log.d("Volley-succes", String.valueOf(successCount));
 
 
 //                                        try {
 //
-                                            Log.d(TAG, response.toString());
+                                Log.d(TAG, response.toString());
 
-                                        try {
-                                            callback.onSuccess(response);
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
+                                try {
+                                    callback.onSuccess(response);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
 //                                            int recipeId = response.getInt("id");
 //                                            String title = response.optString("title", "N/A");
@@ -282,95 +257,49 @@ public class ServicesAPI {
 //                                        } catch (JSONException e1) {
 //                                            e1.printStackTrace();
 //                                        }
-                                        try {
-                                            Log.d(TAG + "Object", response.getString("sourceUrl"));
-                                        } catch (JSONException e1) {
-                                            e1.printStackTrace();
-                                        }
+                                try {
+                                    Log.d(TAG + "Object", response.getString("sourceUrl"));
+                                } catch (JSONException e1) {
+                                    e1.printStackTrace();
+                                }
 
-                                        successCount++;
-                                    }
-
-
-                                }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                VolleyLog.d(TAG + "details", "Error: " + error.getMessage());
-                                errorCount++;
-
-
+                                successCount++;
                             }
-                        }) {
 
-                    /**
-                     * Method to manipulate request header
-                     *
-                     * @return
-                     * @throws AuthFailureError
-                     */
+
+                        }, new Response.ErrorListener() {
+
                     @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<String, String>();
-                        params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
-                        params.put("Accept", "application/json");
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d(TAG + "details", "Error: " + error.getMessage());
+                        errorCount++;
 
-                        return params;
+
                     }
-                };
+                }) {
 
-
-                // Adding request to request queue
-                AppController.getInstance().addToRequestQueue(jsonObjReq);
-
-
-        return recipe;
-    }
-
-    public Recipe useData(int idRecipe) {
-
-        final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
-        final Recipe recipe = new Recipe();
-
-        getRecipeDetails(idRecipe, new DataCallback() {
+            /**
+             * Method to manipulate request header
+             *
+             * @return
+             * @throws AuthFailureError
+             */
             @Override
-            public void onSuccess(JSONObject response) throws JSONException {
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
+                params.put("Accept", "application/json");
 
-
-                int recipeId = response.getInt("id");
-                                            String title = response.optString("title", "N/A");
-                                            String instructions = response.optString("instructions", "N/A");
-                                            int preparationMinutes = response.optInt("preparationMinutes", 0);
-                                            int cookingMinutes = response.optInt("cookingMinutes", 0);
-                                            String imageUrl = response.optString("image", "http/null");
-                                            Log.d("IMAGE-LINK----", imageUrl);
-                                            for (int j = 0; j < response.getJSONArray("extendedIngredients").length(); j++) {
-
-                                                int ingredientId = response.getJSONArray("extendedIngredients").getJSONObject(j).getInt("id");
-                                                String inggredientImage = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
-                                                String name = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
-                                                Log.d("INGREDIENT-NAME----", name);
-                                                Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
-                                                ingredientsList.add(ingredients);
-
-                                            }
-
-                                            ;
-                                            recipe.setCookingMinutes(cookingMinutes);
-                                            recipe.setImageUrl(imageUrl);
-                                            recipe.setIngredientsList(ingredientsList);
-                                            recipe.setTitle(title);
-                                            recipe.setPreparationMinutes(preparationMinutes);
-                                            recipe.setInstructions(instructions);
-                Log.d("recipetest", String.valueOf(recipe.getCookingMinutes()));
-                Log.d("time",String.valueOf(recipe.getCookingMinutes()) +"----"+ String.valueOf(recipe.getPreparationMinutes()) );
-                successCount++;
-                Log.d("Besto",String.valueOf(successCount));
+                return params;
             }
-        });
+        };
+
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
+
+
         return recipe;
     }
-
-
 
 }

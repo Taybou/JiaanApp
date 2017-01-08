@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dz.btesto.upmc.jiaanapp.R;
+import dz.btesto.upmc.jiaanapp.fragments.randomRecipes.RandomRecipesFragment;
 
 public class TabFragment extends Fragment {
 
@@ -48,9 +49,12 @@ public class TabFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return new FirstFragment();
+                    return new RandomRecipesFragment();
                 case 1:
                     return new SecondFragment();
+                case 2:
+                    return new FirstFragment();
+
             }
             return null;
         }
