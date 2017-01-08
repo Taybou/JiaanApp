@@ -26,11 +26,15 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
     private final int resource ;
     List<Ingredients> objects;
     private Context context;
+    boolean state;
+
     public IngredientAdapter(Context context, int resource, List<Ingredients> objects) {
         super(context, resource, objects);
         this.resource = resource ;
         this.context = context;
         this.objects = objects;
+        this.state = true ;
+
     }
 
     @NonNull
@@ -58,6 +62,21 @@ public class IngredientAdapter extends ArrayAdapter<Ingredients> {
                 .override(400,300)
                 .centerCrop()
                 .into((ImageView) imgv);
+
+       final ImageView ingredientImage = (ImageView) convertView.findViewById(R.id.idIngredientIv);
+        ingredientImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(state) {
+                    ingredientImage.setImageResource(R.drawable.ic_action_minus);
+                    //TODO
+                    state = false;
+                }else{
+                    ingredientImage.setImageResource(R.drawable.ic_action_add);
+                    state = true ;
+                }
+            }
+        });
 
         return convertView;
     }

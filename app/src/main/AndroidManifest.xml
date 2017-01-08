@@ -22,10 +22,14 @@
         </activity>
         <activity
             android:name=".IngredientAuto"
-            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.FixedSize"></activity>
+            android:theme="@style/Base.Theme.AppCompat.Light.Dialog.FixedSize" />
         <activity
             android:name=".RecipesDetails"
             android:label="@string/title_activity_recipes_details"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CartActivity"
+            android:label="@string/title_activity_cart"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
