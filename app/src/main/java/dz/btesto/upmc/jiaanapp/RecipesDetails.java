@@ -3,7 +3,6 @@ package dz.btesto.upmc.jiaanapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -37,7 +37,7 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
     TextView instructionTv;
     Toolbar toolbar;
 
-     Intent cartIntent= null ;
+    Intent cartIntent = null;
 
 
     private static RecyclerView.Adapter adapterR;
@@ -56,7 +56,6 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
         Log.d("idRecipe", String.valueOf(idRecipe));
         cartIntent = new Intent(RecipesDetails.this, CartActivity.class);
         useData(idRecipe);
-
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -98,6 +97,11 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                 recyclerView.setAdapter(adapterR);
                 toolbar.setTitle(recipe.getTitle());
                 setSupportActionBar(toolbar);
+
+            }
+
+            @Override
+            public void onSuccess(JSONArray result) throws JSONException {
 
             }
         });

@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp.fragments.randomRecipes;
+package dz.btesto.upmc.jiaanapp.fragments.byNutritionRecipes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -18,17 +18,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.entity.Recipe;
+import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 import dz.btesto.upmc.jiaanapp.utils.Parssers;
 import dz.btesto.upmc.jiaanapp.volley.DataCallback;
 
-public class RandomRecipesFragment extends Fragment {
+public class ByNutritionRecipesFragment extends Fragment {
 
     private View rootView = null;
-    List<Recipe> recipes;
+    List<DisplayingRecipe> recipes;
 
-    public RandomRecipesFragment() {
+    public ByNutritionRecipesFragment() {
         // Required empty public constructor
     }
 
@@ -44,24 +44,22 @@ public class RandomRecipesFragment extends Fragment {
     private void initializeData() {
         ServicesAPI servicesAPI = new ServicesAPI();
         recipes = new ArrayList<>();
-
-        servicesAPI.getRandomRecipes(new DataCallback() {
+        servicesAPI.getRecipesByNutrition(new DataCallback() {
             @Override
-            public void onSuccess(JSONObject result) throws JSONException {
-                recipes = Parssers.parssingRandomRecipes(result);
+            public void onSuccess(JSONArray result) throws JSONException {
+                recipes = Parssers.parssingRecipesByNutrition(result);
                 setupRecyclerView();
             }
 
             @Override
-            public void onSuccess(JSONArray result) throws JSONException {
-
+            public void onSuccess(JSONObject result) throws JSONException {
             }
-        });
+        }, "");
     }
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.random_recipes_recycler_view);
-        RandomRecipesAdapter mRandomRecipesAdapter = new RandomRecipesAdapter(recipes, getContext());
+        ByNutritionRecipesAdapter mRandomRecipesAdapter = new ByNutritionRecipesAdapter(recipes, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mRandomRecipesAdapter);
@@ -70,35 +68,35 @@ public class RandomRecipesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("FRAGMENT-RAND", "onSTART");
+        Log.d("FRAGMENT-NUT", "onSTART");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         initializeData();
-        Log.d("FRAGMENT-RAND", "onResume");
+        Log.d("FRAGMENT-NUT", "onResume");
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("FRAGMENT-RAND", "onStop");
+        Log.d("FRAGMENT-NUT", "onStop");
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("FRAGMENT-RAND", "onPause");
+        Log.d("FRAGMENT-NUT", "onPause");
 
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("FRAGMENT-RAND", "onAttach");
+        Log.d("FRAGMENT-NUT", "onAttach");
 
     }
-
 }

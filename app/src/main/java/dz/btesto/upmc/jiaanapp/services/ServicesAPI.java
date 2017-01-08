@@ -22,7 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.entity.Ingredients;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 import dz.btesto.upmc.jiaanapp.volley.AppController;
@@ -36,71 +35,44 @@ public class ServicesAPI {
 
     private static final String TAG = "Json-Respons";
     private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10";
-    // private static final String recipeByIngredientsURl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByIngredients?fillIngredients=false&ingredients=apples%2Cflour%2Csugar&limitLicense=false&number=30&ranking=";
-    private String jsonResponse;
     public int successCount = 0;
-    private int errorCount = 0;
 
-    /**
-     * Method to make json object request where json response starts wtih {
-     */
-    public List<Recipe> getRandomRecipes(final DataCallback callback) {
-        final List<Recipe> recipes = new ArrayList<Recipe>();
-        final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest
+    public void getRandomRecipes(final DataCallback callback) {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
                 (Request.Method.GET,
                         randomUrl,
                         "",
                         new Response.Listener<JSONObject>() {
-
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.d(TAG, response.toString());
-
-
-
+                                //Log.d(TAG, response.toString());
                                 try {
                                     callback.onSuccess(response);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
-
                             }
-                        }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error: " + error.getMessage());
-
-
-                    }
-                }) {
-
-            /**
-             * Method to manipulate request header
-             * @return
-             * @throws AuthFailureError
-             */
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            }
+                        }
+                ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
                 params.put("Accept", "application/json");
-
                 return params;
             }
         };
 
-
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
-        return recipes;
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
 
-    public List<DisplayingRecipe> getRecipesByIngredientss(String ingredients) {
-
-
+    public void getRecipesByIngredients(final DataCallback callback, String ingredients) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority("spoonacular-recipe-food-nutrition-v1.p.mashape.com")
@@ -114,77 +86,88 @@ public class ServicesAPI {
 
         String recipeByIngredientsURl = builder.build().toString();
 
-
-        final List<DisplayingRecipe> recipes = new ArrayList<DisplayingRecipe>();
-
-        JsonArrayRequest jsonObjReq = new JsonArrayRequest
-                (
-                        recipeByIngredientsURl,
-
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (recipeByIngredientsURl,
                         new Response.Listener<JSONArray>() {
-
                             @RequiresApi(api = Build.VERSION_CODES.KITKAT)
                             @Override
                             public void onResponse(JSONArray response) {
-                                Log.d(TAG, response.toString());
-
+                                //       Log.d(TAG, response.toString());
                                 try {
-                                    Log.d("Object-size", "islam");
-                                    JSONArray obj = new JSONArray(response.toString());
-                                    Log.d("Object-size", String.valueOf(obj.length()));
-                                    for (int i = 0; i < obj.length(); i++) {
-                                        int recipeId = obj.getJSONObject(i).getInt("id");
-                                        String title = obj.getJSONObject(i).optString("title", "N/A");
-                                        //  String instructions = obj.getJSONObject(i).optString("instructions", "N/A");
-                                        //  int preparationMinutes = obj.getJSONObject(i).optInt("preparationMinutes", 0);
-                                        //   int cookingMinutes = obj.getJSONObject(i).optInt("cookingMinutes", 0);
-                                        String imageUrl = obj.getJSONObject(i).optString("image", null);
-                                        String likes = obj.getJSONObject(i).optString("aggregateLikes", "0");
-                                        Log.d("IMAGE-LINK----", imageUrl);
-
-
-                                        ;
-
-                                        DisplayingRecipe recipe = new DisplayingRecipe(recipeId, title, imageUrl, likes);
-                                        recipes.add(recipe);
-                                        Log.d("REcipeBYINGREDIENTSIZE", String.valueOf(recipes.size()));
-                                    }
-                                    Log.d(TAG + "Object", obj.getJSONObject(0).getString("sourceUrl"));
+                                    callback.onSuccess(response);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
-
                             }
-                        }, new Response.ErrorListener() {
-
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG, "Error: " + error.getMessage());
-
-
-                    }
-                }) {
-
-            /**
-             * Method to manipulate request header
-             * @return
-             * @throws AuthFailureError
-             */
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                //    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            }
+                        }
+                ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
                 params.put("Accept", "application/json");
-
                 return params;
             }
         };
 
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
+    }
 
-        // Adding request to request queue
-        AppController.getInstance().addToRequestQueue(jsonObjReq);
-        return recipes;
+    public void getRecipesByNutrition(final DataCallback callback, String ingredients) {
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority("spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+                .appendPath("recipes")
+                .appendPath("findByNutrients")
+                .appendQueryParameter("maxcalories", "250")
+                .appendQueryParameter("maxcarbs", "100")
+                .appendQueryParameter("maxfat", "20")
+                .appendQueryParameter("maxprotein", "100")
+                .appendQueryParameter("mincalories", "0")
+                // .appendQueryParameter("minCarbs", "10")
+                .appendQueryParameter("minfat", "5")
+                .appendQueryParameter("minProtein", "10")
+                .appendQueryParameter("number", "20")
+                .appendQueryParameter("offset", "0")
+                .appendQueryParameter("random", "true");
+
+        String recipeByNutritionURL = builder.build().toString();
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest
+                (recipeByNutritionURL,
+                        new Response.Listener<JSONArray>() {
+                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                try {
+                                    callback.onSuccess(response);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                            }
+                        }
+                ) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
+                params.put("Accept", "application/json");
+                return params;
+            }
+        };
+
+        AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
 
     public Recipe getRecipeDetails(int idRecipe, final DataCallback callback) {
@@ -198,8 +181,7 @@ public class ServicesAPI {
                 .appendPath("recipes")
                 .appendPath(String.valueOf(idRecipe))
                 .appendPath("information")
-                .appendQueryParameter("includeNutrition", "false")
-        ;
+                .appendQueryParameter("includeNutrition", "false");
 
         String recipeByIngredientsURl = builder.build().toString();
 
@@ -212,14 +194,14 @@ public class ServicesAPI {
 
                             @Override
                             public void onResponse(JSONObject response) {
-                                Log.d(TAG, response.toString());
+                                //Log.d(TAG, response.toString());
 
-                                Log.d("Volley-succes", String.valueOf(successCount));
+                                //  Log.d("Volley-succes", String.valueOf(successCount));
 
 
 //                                        try {
 //
-                                Log.d(TAG, response.toString());
+                                //  Log.d(TAG, response.toString());
 
                                 try {
                                     callback.onSuccess(response);
@@ -271,9 +253,7 @@ public class ServicesAPI {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        VolleyLog.d(TAG + "details", "Error: " + error.getMessage());
-                        errorCount++;
-
+                        //  VolleyLog.d(TAG + "details", "Error: " + error.getMessage());
 
                     }
                 }) {

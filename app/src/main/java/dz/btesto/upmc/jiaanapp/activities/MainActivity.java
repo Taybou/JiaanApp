@@ -1,6 +1,8 @@
 package dz.btesto.upmc.jiaanapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -10,7 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
+import dz.btesto.upmc.jiaanapp.IngredientAuto;
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.fragments.TabFragment;
 
@@ -38,6 +42,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_search);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IngredientAuto.class);
+                startActivity(intent);
+                //Toast.makeText(getApplicationContext(), "Choisissez 1 produit au minimum", Toast.LENGTH_SHORT).show();
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override

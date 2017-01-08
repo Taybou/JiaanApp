@@ -19,7 +19,12 @@ public class Ingredients implements Serializable {
         this.imageUrl = imageUrl;
         this.name = name;
         this.state = state ;
+    }
 
+    public Ingredients(int ingredientsId, String imageUrl, String name) {
+        this.ingredientsId = ingredientsId;
+        this.imageUrl = imageUrl;
+        this.name = name;
     }
 
     public int getIngredientsId() {

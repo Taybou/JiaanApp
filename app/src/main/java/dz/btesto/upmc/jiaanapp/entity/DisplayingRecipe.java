@@ -9,13 +9,19 @@ public class DisplayingRecipe {
     private int recipeId;
     private String title;
     private String imageUrl;
-    private String likes ;
+    private String likes;
 
     public DisplayingRecipe(int recipeId, String title, String imageUrl, String likes) {
         this.recipeId = recipeId;
         this.title = title;
         this.imageUrl = imageUrl;
         this.likes = likes;
+    }
+
+    public DisplayingRecipe(int recipeId, String title, String imageUrl) {
+        this.recipeId = recipeId;
+        this.title = title;
+        this.imageUrl = imageUrl;
     }
 
     public int getRecipeId() {

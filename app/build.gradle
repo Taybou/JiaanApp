@@ -36,4 +36,5 @@ dependencies {
     compile "com.splitwise:tokenautocomplete:2.0.8@aar"
     compile 'org.parceler:parceler-api:1.1.5'
     testCompile 'junit:junit:4.12'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
