@@ -294,6 +294,96 @@ public class ServicesAPI {
     }
 
 
+    public List<DisplayingRecipe> getRecipesBynutrietions(String ingredients) {
+      //  https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/findByNutrients
+
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("https")
+                .authority("spoonacular-recipe-food-nutrition-v1.p.mashape.com")
+                .appendPath("recipes")
+                .appendPath("findByNutrients")
+                .appendQueryParameter("maxcalories", "250")
+                .appendQueryParameter("maxcarbs", "100")
+                .appendQueryParameter("maxfat", "20")
+                .appendQueryParameter("maxprotein", "100")
+
+                .appendQueryParameter("random", "true");
+
+        String recipeByNutritionsURl = builder.build().toString();
+
+        Log.d("Nutrition-URI", recipeByNutritionsURl);
+        final List<DisplayingRecipe> recipes = new ArrayList<DisplayingRecipe>();
+
+        JsonArrayRequest jsonObjReq = new JsonArrayRequest
+                (
+                        recipeByNutritionsURl,
+
+                        new Response.Listener<JSONArray>() {
+
+                            @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                            @Override
+                            public void onResponse(JSONArray response) {
+                                Log.d(TAG, response.toString());
+
+                                try {
+                                    Log.d("Object-size", "islam");
+                                    JSONArray obj = new JSONArray(response.toString());
+                                    Log.d("Object-size", String.valueOf(obj.length()));
+                                    for (int i = 0; i < obj.length(); i++) {
+                                        int recipeId = obj.getJSONObject(i).getInt("id");
+                                        String title = obj.getJSONObject(i).optString("title", "N/A");
+                                        //  String instructions = obj.getJSONObject(i).optString("instructions", "N/A");
+                                        //  int preparationMinutes = obj.getJSONObject(i).optInt("preparationMinutes", 0);
+                                        //   int cookingMinutes = obj.getJSONObject(i).optInt("cookingMinutes", 0);
+                                        String imageUrl = obj.getJSONObject(i).optString("image", null);
+                                        String likes = obj.getJSONObject(i).optString("aggregateLikes", "0");
+                                        Log.d("IMAGE-LINK----", imageUrl);
+
+
+                                        ;
+
+                                        DisplayingRecipe recipe = new DisplayingRecipe(recipeId, title, imageUrl, likes);
+                                        recipes.add(recipe);
+                                        Log.d("REcipeBYINGREDIENTSIZE", String.valueOf(recipes.size()));
+                                    }
+                                    Log.d(TAG + "Object", obj.getJSONObject(0).getString("sourceUrl"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+
+                            }
+                        }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        VolleyLog.d(TAG, "Error: " + error.getMessage());
+                        Log.d("ERROR-Volley",error.toString() );
+
+
+                    }
+                }) {
+
+            /**
+             * Method to manipulate request header
+             * @return
+             * @throws AuthFailureError
+             */
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
+                params.put("Accept", "application/json");
+
+                return params;
+            }
+        };
+
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(jsonObjReq);
+        return recipes;
+    }
 
 
 

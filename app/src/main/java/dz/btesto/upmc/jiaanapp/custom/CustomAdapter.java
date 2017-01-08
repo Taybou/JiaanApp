@@ -1,6 +1,7 @@
 package dz.btesto.upmc.jiaanapp.custom;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,10 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
        // ingredientImageView.setText(dataSet.get(listPosition).getName());
         ingeredientTitle.setText(ingredientsArrayList.get(position).getName());
+        for(int i=0;i<ingredientsArrayList.size();i++){
+            Log.d("State-Ingr",String.valueOf(ingredientsArrayList.get(i).getName()+" -- "+ ingredientsArrayList.get(i).isState()) );
+        }
+
         if(ingredientsArrayList.get(position).isState()){
             addImageview.setImageResource(R.drawable.ic_action_add);
         }else{
@@ -86,6 +91,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 }
             }
         });
+
+
 
         data.getCartData(ingredientsArrayList);
 

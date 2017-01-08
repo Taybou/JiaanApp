@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.custom.CartCustomAdapter;
@@ -34,12 +35,26 @@ public class CartActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
        final List<Ingredients> ingredientses = (List<Ingredients>) intent.getSerializableExtra("cartList");
-        for(int i=0;i<ingredientses.size();i++){
-            if(ingredientses.get(i).isState()){
-                ingredientses.remove(i);
+//        for(int i=0;i<ingredientses.size();i++){
+//            Log.d("ISLAMBESTO-SIZE", String.valueOf(ingredientses.size()));
+//            Log.d("ISLAMBESTO", String.valueOf(ingredientses.get(i).getName()+" -- "+ ingredientses.get(i).isState()));
+//            if(ingredientses.get(i).isState()==true){
+//                Log.d("ISLAMBESTO-AFTER", String.valueOf(ingredientses.get(i).getName()+" -- "+ ingredientses.get(i).isState()));
+//
+//                ingredientses.remove(i);
+//            }
+//        }
+
+        Iterator<Ingredients> i = ingredientses.iterator();
+        while (i.hasNext()) {
+            Ingredients s = i.next(); // must be called before you can call i.remove()
+            if (s.isState()) {
+                i.remove();
             }
         }
-        Log.d("ISLAMBESTO", String.valueOf(ingredientses.size()));
+
+        Log.d("AFTER-ISLAMBESTO-SIZE", String.valueOf(ingredientses.size()));
+
         recyclerView = (RecyclerView) findViewById(R.id.cartIngredientLv);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getApplicationContext());

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,15 +72,6 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
 
                 Ingredients p = getItem(position);
                 ((TextView) convertView.findViewById(R.id.name)).setText(p.getName());
-              //  ((TextView) convertView.findViewById(R.id.linkimage)).setText(p.getImageUrl());
-
-//                Glide
-//                        .with(getContext())
-//                        .load("https://spoonacular.com/cdn/ingredients_100x100/"+p.getImageUrl())
-//
-//                        .into(inggredientImage);
-
-
                 return convertView;
             }
         };
@@ -89,23 +81,28 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
         completionView.setTokenClickStyle(TokenCompleteTextView.TokenClickStyle.Select);
     }
 
-    private void updateTokenConfirmation() {
-        StringBuilder sb = new StringBuilder("Current tokens:\n");
-        for (Object token: completionView.getObjects()) {
-            sb.append(token.toString());
-            sb.append("\n");
+    private String updateTokenConfirmation() {
+        StringBuilder sb = new StringBuilder("");
+        for (Ingredients token: completionView.getObjects()) {
+            sb.append(token.getName());
+            sb.append(",");
+
+
         }
+        Log.d("TokenTExt",""+sb.toString());
+
+        return sb.toString();
 
 
     }
     @Override
     public void onTokenAdded(Ingredients token) {
-
+        updateTokenConfirmation();
     }
 
     @Override
     public void onTokenRemoved(Ingredients token) {
-
+        updateTokenConfirmation();
     }
 
 
