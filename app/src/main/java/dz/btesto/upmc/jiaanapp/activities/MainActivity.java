@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -30,28 +29,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
-        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
-
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener(this);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), IngredientAuto.class);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(), "Choisissez 1 produit au minimum", Toast.LENGTH_SHORT).show();
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        mFragmentTransaction = getSupportFragmentManager().beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -82,14 +80,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
 
         if (id == R.id.nav_home) {
-            Log.d("CLICKED: ", "TABS");
             mFragmentTransaction.replace(R.id.containerView, new TabFragment());
+        } else if (id == R.id.nav_shopping_cart) {
+
+        } else if (id == R.id.nav_favorite_recipes) {
 
         } else if (id == R.id.nav_setting) {
-            Log.d("CLICKED: ", "THIRD FRAGMENT");
 
         } else if (id == R.id.nav_about) {
-            Log.d("CLICKED: ", "SETTINGS");
+
         }
 
         mFragmentTransaction.commit();

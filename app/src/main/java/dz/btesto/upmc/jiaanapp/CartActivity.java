@@ -2,22 +2,17 @@ package dz.btesto.upmc.jiaanapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.custom.CartCustomAdapter;
-import dz.btesto.upmc.jiaanapp.custom.CustomAdapter;
 import dz.btesto.upmc.jiaanapp.entity.Ingredients;
 
 public class CartActivity extends AppCompatActivity {
@@ -34,7 +29,7 @@ public class CartActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         Intent intent = getIntent();
-       final List<Ingredients> ingredientses = (List<Ingredients>) intent.getSerializableExtra("cartList");
+        final List<Ingredients> ingredientses = (List<Ingredients>) intent.getSerializableExtra("cartList");
 //        for(int i=0;i<ingredientses.size();i++){
 //            Log.d("ISLAMBESTO-SIZE", String.valueOf(ingredientses.size()));
 //            Log.d("ISLAMBESTO", String.valueOf(ingredientses.get(i).getName()+" -- "+ ingredientses.get(i).isState()));
@@ -62,7 +57,6 @@ public class CartActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         adapterR = new CartCustomAdapter(ingredientses);
         recyclerView.setAdapter(adapterR);
-
 
     }
 }

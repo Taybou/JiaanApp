@@ -1,14 +1,12 @@
 package dz.btesto.upmc.jiaanapp;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 
@@ -16,13 +14,14 @@ import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 public class MainActivityTest extends AppCompatActivity {
 
 
-    private TextView jsonRes ;
-    private Button fetchBtn ;
+    private TextView jsonRes;
+    private Button fetchBtn;
     private Button autoBtn;
     private Button nutritionsbtn;
     private ProgressBar spinner;
 
     final ServicesAPI servicesAPI = new ServicesAPI();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +29,8 @@ public class MainActivityTest extends AppCompatActivity {
 
         jsonRes = (TextView) findViewById(R.id.jsonTest);
         fetchBtn = (Button) findViewById(R.id.fetchBtn);
-        autoBtn= (Button) findViewById(R.id.autoBtn);
+        autoBtn = (Button) findViewById(R.id.autoBtn);
         nutritionsbtn = (Button) findViewById(R.id.nutritions);
-
 
 
         final Intent intent = new Intent(MainActivityTest.this, IngredientAuto.class);
@@ -44,7 +42,7 @@ public class MainActivityTest extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                intent2.putExtra("recipeID",  582367);
+                intent2.putExtra("recipeID", 582367);
                 startActivity(intent2);
 
 
@@ -61,12 +59,10 @@ public class MainActivityTest extends AppCompatActivity {
         nutritionsbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), servicesAPI.getRecipesBynutrietions("apple").toString(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), servicesAPI.getRecipesByNutrition("apple").toString(),
+//                        Toast.LENGTH_LONG).show();
             }
         });
-
-
 
 
     }

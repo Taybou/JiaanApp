@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -44,11 +46,19 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
     private RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
 
+
+    private static final String INGREDIENTS_COLUMN = "ingredients";
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes_details);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        myRef = database.getReference();
+
         initView();
         final ServicesAPI servicesAPI = new ServicesAPI();
         Intent intent = getIntent();
@@ -62,12 +72,12 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
 
+                myRef.child(INGREDIENTS_COLUMN).child("userID").setValue(ingredientses);
                 startActivity(cartIntent);
             }
         });
+
     }
 
     public void useData(int idRecipe) {
@@ -116,6 +126,7 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
 
     @Override
     public void getCartData(List<Ingredients> ingredientses) {
+        this.ingredientses = ingredientses;
         cartIntent.putExtra("cartList", (Serializable) ingredientses);
     }
 }
