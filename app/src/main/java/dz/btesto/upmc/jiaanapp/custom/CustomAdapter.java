@@ -1,7 +1,6 @@
 package dz.btesto.upmc.jiaanapp.custom;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,11 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.HashMap;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.entity.Ingredients;
+import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 
 /**
  * Created by besto on 06/01/17.
@@ -21,8 +21,9 @@ import dz.btesto.upmc.jiaanapp.entity.Ingredients;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private List<Ingredients> ingredientsArrayList ;
-    private SendCartData data ;
+    private final HashMap<Integer, Ingredient> ingredients;
+    private List<Ingredient> ingredientsArrayList;
+    private SendCartData data;
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
@@ -40,14 +41,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
 
-    public CustomAdapter(List<Ingredients> data) {
+    public CustomAdapter(List<Ingredient> data) {
+        ingredients = new HashMap<>();
         this.ingredientsArrayList = data;
     }
+
     @Override
     public CustomAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.ingredients_list, parent, false);
-
 
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
@@ -55,49 +57,38 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(CustomAdapter.MyViewHolder holder,final int position) {
-        ImageView ingredientImageView = holder.ingredientImageView;
-        TextView ingeredientTitle = holder.ingeredientTitle;
-        final ImageView addImageview = holder.addImageview;
+    public void onBindViewHolder(final CustomAdapter.MyViewHolder holder, final int position) {
+        final Ingredient ingredient = ingredientsArrayList.get(position);
 
         Glide
-                .with(ingredientImageView.getContext())
-                .load(ingredientsArrayList.get(position).getImageUrl())
-                .override(400,300)
+                .with(holder.ingredientImageView.getContext())
+                .load(ingredient.getImageUrl())
+                .override(400, 300)
                 .centerCrop()
-                .into((ImageView) ingredientImageView);
+                .into(holder.ingredientImageView);
 
-       // ingredientImageView.setText(dataSet.get(listPosition).getName());
-        ingeredientTitle.setText(ingredientsArrayList.get(position).getName());
-        for(int i=0;i<ingredientsArrayList.size();i++){
-            Log.d("State-Ingr",String.valueOf(ingredientsArrayList.get(i).getName()+" -- "+ ingredientsArrayList.get(i).isState()) );
-        }
+        holder.ingeredientTitle.setText(ingredient.getName());
+        if (ingredient.isState()) holder.addImageview.setImageResource(R.drawable.ic_action_add);
+        else holder.addImageview.setImageResource(R.drawable.ic_action_minus);
 
-        if(ingredientsArrayList.get(position).isState()){
-            addImageview.setImageResource(R.drawable.ic_action_add);
-        }else{
-            addImageview.setImageResource(R.drawable.ic_action_minus);
-        }
-
-        addImageview.setOnClickListener(new View.OnClickListener() {
+        holder.addImageview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(ingredientsArrayList.get(position).isState()){
-                    ingredientsArrayList.get(position).setState(false);
-                    addImageview.setImageResource(R.drawable.ic_action_minus);
-                }else{
-                    ingredientsArrayList.get(position).setState(true);
-                    addImageview.setImageResource(R.drawable.ic_action_add);
+
+                if (ingredient.isState()) {
+                    ingredient.setState(false);
+                    ingredients.put(position, ingredient);
+                    holder.addImageview.setImageResource(R.drawable.ic_action_minus);
+                } else {
+                    ingredient.setState(true);
+                    ingredients.remove(position);
+                    holder.addImageview.setImageResource(R.drawable.ic_action_add);
                 }
             }
         });
 
-
-
-        data.getCartData(ingredientsArrayList);
-
+        data.getCartData(ingredients);
     }
-
 
 
     @Override
@@ -124,6 +115,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     }
 
     public interface SendCartData {
-        void getCartData(List<Ingredients> ingredientses);
+        void getCartData(HashMap ingredientses);
     }
 }

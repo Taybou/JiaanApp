@@ -13,13 +13,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 
-import dz.btesto.upmc.jiaanapp.IngredientAuto;
+import com.google.firebase.auth.FirebaseAuth;
+
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.fragments.TabFragment;
+import dz.btesto.upmc.jiaanapp.activities.account.LoginActivity;
+import dz.btesto.upmc.jiaanapp.fragments.homeFragment.TabFragment;
+import dz.btesto.upmc.jiaanapp.fragments.shoppingCart.ShoppingCartFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private FragmentTransaction mFragmentTransaction;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 startActivity(intent);
             }
         });
+
+        mAuth = FirebaseAuth.getInstance();
 
         mFragmentTransaction = getSupportFragmentManager().beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
@@ -82,13 +88,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             mFragmentTransaction.replace(R.id.containerView, new TabFragment());
         } else if (id == R.id.nav_shopping_cart) {
-
+            mFragmentTransaction.replace(R.id.containerView, new ShoppingCartFragment());
         } else if (id == R.id.nav_favorite_recipes) {
 
         } else if (id == R.id.nav_setting) {
-
+            startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
         } else if (id == R.id.nav_about) {
 
+        } else if (id == R.id.nav_signout) {
+            mAuth.signOut();
+            startActivity(new Intent(getApplicationContext(), LoginActivity.class));
         }
 
         mFragmentTransaction.commit();

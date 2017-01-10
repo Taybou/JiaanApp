@@ -10,23 +10,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
-import dz.btesto.upmc.jiaanapp.entity.Ingredients;
+import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 
-public class Parssers {
+public class Parser {
 
-    public static Recipe parssingRecipeDetails(JSONObject response) throws JSONException {
+    public static Recipe parsingRecipeDetails(JSONObject response) throws JSONException {
         final Recipe recipe = new Recipe();
-        final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
+        final List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
 
         for (int j = 0; j < response.getJSONArray("extendedIngredients").length(); j++) {
-            Ingredients ingredients =
-                    new Ingredients(response.getJSONArray("extendedIngredients").getJSONObject(j).getInt("id"),
+            Ingredient ingredients =
+                    new Ingredient(response.getJSONArray("extendedIngredients").getJSONObject(j).getInt("id"),
                             response.getJSONArray("extendedIngredients").getJSONObject(j).optString("image", ""),
                             response.getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A"),
                             true);
             ingredientsList.add(ingredients);
         }
+        recipe.setRecipeId(response.optInt("id", 0));
         recipe.setCookingMinutes(response.optInt("readyInMinutes", 0));
         recipe.setImageUrl(response.optString("image", "http/null"));
         recipe.setIngredientsList(ingredientsList);
@@ -40,7 +41,7 @@ public class Parssers {
 
     }
 
-    public static List<Recipe> parssingRandomRecipes(JSONObject result) throws JSONException {
+    public static List<Recipe> parsingRandomRecipes(JSONObject result) throws JSONException {
         List<Recipe> recipes = new ArrayList<>();
         JSONArray obj = result.getJSONArray("recipes");
         for (int i = 0; i < obj.length(); i++) {
@@ -56,7 +57,7 @@ public class Parssers {
         return recipes;
     }
 
-    public static List<DisplayingRecipe> parssingRecipesByIngredients(JSONArray result) throws JSONException {
+    public static List<DisplayingRecipe> parsingRecipesByIngredients(JSONArray result) throws JSONException {
         List<DisplayingRecipe> recipes = new ArrayList<>();
         JSONArray obj = new JSONArray(result.toString());
         for (int i = 0; i < obj.length(); i++) {
@@ -70,7 +71,7 @@ public class Parssers {
         return recipes;
     }
 
-    public static List<DisplayingRecipe> parssingRecipesByNutrition(JSONArray result) throws JSONException {
+    public static List<DisplayingRecipe> parsingRecipesByNutrition(JSONArray result) throws JSONException {
         List<DisplayingRecipe> recipes = new ArrayList<>();
         JSONArray obj = new JSONArray(result.toString());
         for (int i = 0; i < obj.length(); i++) {
@@ -85,12 +86,11 @@ public class Parssers {
 
     public static String formatTime(int time) {
         final String minuteTag = "min";
-        final String houreTag = "h";
+        final String hourTag = "h";
         if (time < 60) {
             return String.valueOf(time) + minuteTag;
         } else {
-
-            return String.valueOf(time / 60 + houreTag + " " + time % 60 + minuteTag);
+            return String.valueOf(time / 60 + hourTag + " " + time % 60 + minuteTag);
         }
     }
 }

@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp;
+package dz.btesto.upmc.jiaanapp.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -28,16 +28,17 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.custom.IngredientCompletionView;
-import dz.btesto.upmc.jiaanapp.entity.Ingredients;
+import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 
-import static dz.btesto.upmc.jiaanapp.fragments.TabFragment.viewPager;
+import static dz.btesto.upmc.jiaanapp.fragments.homeFragment.TabFragment.viewPager;
 
-public class IngredientAuto extends AppCompatActivity implements TokenCompleteTextView.TokenListener<Ingredients> {
+public class IngredientAuto extends AppCompatActivity implements TokenCompleteTextView.TokenListener<Ingredient> {
 
     IngredientCompletionView completionView;
-    List<Ingredients> ingredients;
-    ArrayAdapter<Ingredients> adapter;
+    List<Ingredient> ingredients;
+    ArrayAdapter<Ingredient> adapter;
     public static String searchIngredients;
 
     @Override
@@ -54,9 +55,9 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
         }
 
 
-        adapter = new FilteredArrayAdapter<Ingredients>(this, R.layout.ingredient_item, ingredients) {
+        adapter = new FilteredArrayAdapter<Ingredient>(this, R.layout.ingredient_item, ingredients) {
             @Override
-            protected boolean keepObject(Ingredients ingredients, String mask) {
+            protected boolean keepObject(Ingredient ingredients, String mask) {
                 mask = mask.toLowerCase();
                 return ingredients.getName().toLowerCase().startsWith(mask) || ingredients.getImageUrl().toLowerCase().startsWith(mask);
             }
@@ -70,7 +71,7 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
                     convertView = l.inflate(R.layout.ingredient_item, parent, false);
                 }
 
-                Ingredients p = getItem(position);
+                Ingredient p = getItem(position);
                 ((TextView) convertView.findViewById(R.id.name)).setText(p.getName());
                 return convertView;
             }
@@ -94,7 +95,7 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
 
     private String updateTokenConfirmation() {
         StringBuilder sb = new StringBuilder("");
-        for (Ingredients token : completionView.getObjects()) {
+        for (Ingredient token : completionView.getObjects()) {
             sb.append(token.getName());
             sb.append(",");
 
@@ -108,18 +109,18 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
     }
 
     @Override
-    public void onTokenAdded(Ingredients token) {
+    public void onTokenAdded(Ingredient token) {
         updateTokenConfirmation();
     }
 
     @Override
-    public void onTokenRemoved(Ingredients token) {
+    public void onTokenRemoved(Ingredient token) {
         updateTokenConfirmation();
     }
 
 
-    public List<Ingredients> getIngredient() throws IOException, JSONException {
-        List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
+    public List<Ingredient> getIngredient() throws IOException, JSONException {
+        List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
         InputStream is = getResources().openRawResource(R.raw.ingredient);
         Writer writer = new StringWriter();
         char[] buffer = new char[1024];
@@ -142,7 +143,7 @@ public class IngredientAuto extends AppCompatActivity implements TokenCompleteTe
         for (int i = 0; i < mainObject.length(); i++) {
             String name = mainObject.getJSONObject(i).getString("name");
             String image = mainObject.getJSONObject(i).getString("image");
-            Ingredients ingredients = new Ingredients(i, image, name, true);
+            Ingredient ingredients = new Ingredient(i, image, name, true);
             ingredientsList.add(ingredients);
         }
 

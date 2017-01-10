@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp.fragments.randomRecipes;
+package dz.btesto.upmc.jiaanapp.fragments.homeFragment.randomRecipes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.RecipesDetails;
+import dz.btesto.upmc.jiaanapp.activities.RecipesDetails;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 
 /**

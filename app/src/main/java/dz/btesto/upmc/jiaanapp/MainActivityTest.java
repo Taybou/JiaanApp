@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import dz.btesto.upmc.jiaanapp.activities.IngredientAuto;
+import dz.btesto.upmc.jiaanapp.activities.RecipesDetails;
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 
 

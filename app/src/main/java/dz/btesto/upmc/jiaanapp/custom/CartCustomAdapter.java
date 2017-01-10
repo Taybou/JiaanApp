@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.entity.Ingredients;
+import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 
 /**
  * Created by besto on 07/01/17.
@@ -20,7 +20,7 @@ import dz.btesto.upmc.jiaanapp.entity.Ingredients;
 
 public class CartCustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private List<Ingredients> ingredientsArrayList ;
+    private List<Ingredient> ingredientsArrayList ;
 
 
 
@@ -39,7 +39,7 @@ public class CartCustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyView
         }
     }
 
-    public CartCustomAdapter(List<Ingredients> data) {
+    public CartCustomAdapter(List<Ingredient> data) {
 
         this.ingredientsArrayList = data;
     }

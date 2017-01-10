@@ -1,5 +1,7 @@
 package dz.btesto.upmc.jiaanapp.services;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
@@ -22,10 +24,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import dz.btesto.upmc.jiaanapp.entity.Ingredients;
+import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 import dz.btesto.upmc.jiaanapp.volley.AppController;
 import dz.btesto.upmc.jiaanapp.volley.DataCallback;
+
+import static android.content.Context.MODE_PRIVATE;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MAX_CAL;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MAX_FAT;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MAX_PROT;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MIN_CAL;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MIN_FAT;
+import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MIN_PROT;
 
 /**
  * Created by besto on 15/12/16.
@@ -36,6 +47,7 @@ public class ServicesAPI {
     private static final String TAG = "Json-Respons";
     private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10";
     public int successCount = 0;
+    private SharedPreferences sharedPreferences;
 
     public void getRandomRecipes(final DataCallback callback) {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest
@@ -119,20 +131,22 @@ public class ServicesAPI {
         AppController.getInstance().addToRequestQueue(jsonObjectRequest);
     }
 
-    public void getRecipesByNutrition(final DataCallback callback, String ingredients) {
+    public void getRecipesByNutrition(final DataCallback callback, Context context) {
+        sharedPreferences = context.getSharedPreferences(PREFS, MODE_PRIVATE);
+
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
                 .authority("spoonacular-recipe-food-nutrition-v1.p.mashape.com")
                 .appendPath("recipes")
                 .appendPath("findByNutrients")
-                .appendQueryParameter("maxcalories", "250")
-                .appendQueryParameter("maxcarbs", "100")
-                .appendQueryParameter("maxfat", "20")
-                .appendQueryParameter("maxprotein", "100")
-                .appendQueryParameter("mincalories", "0")
+                .appendQueryParameter("maxcalories", String.valueOf(sharedPreferences.getInt(PREFS_MAX_CAL, 250)))
+                //.appendQueryParameter("maxcarbs", String.valueOf(sharedPreferences.getInt(,100)))
+                .appendQueryParameter("maxfat", String.valueOf(sharedPreferences.getInt(PREFS_MAX_FAT, 20)))
+                .appendQueryParameter("maxprotein", String.valueOf(sharedPreferences.getInt(PREFS_MAX_PROT, 100)))
+                .appendQueryParameter("mincalories", String.valueOf(sharedPreferences.getInt(PREFS_MIN_CAL, 0)))
                 // .appendQueryParameter("minCarbs", "10")
-                .appendQueryParameter("minfat", "5")
-                .appendQueryParameter("minProtein", "10")
+                .appendQueryParameter("minfat", String.valueOf(sharedPreferences.getInt(PREFS_MIN_FAT, 5)))
+                .appendQueryParameter("minProtein", String.valueOf(sharedPreferences.getInt(PREFS_MIN_PROT, 10)))
                 .appendQueryParameter("number", "20")
                 .appendQueryParameter("offset", "0")
                 .appendQueryParameter("random", "true");
@@ -160,7 +174,7 @@ public class ServicesAPI {
                 ) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                Map<String, String> params = new HashMap<>();
                 params.put("X-Mashape-Key", "B0SwO2cGLvmshUiLiIw441A4O4bzp1MTCEmjsnsHYxhEtyGNw8");
                 params.put("Accept", "application/json");
                 return params;
@@ -173,7 +187,7 @@ public class ServicesAPI {
     public Recipe getRecipeDetails(int idRecipe, final DataCallback callback) {
         final Recipe recipe = new Recipe();
 
-        final List<Ingredients> ingredientsList = new ArrayList<Ingredients>();
+        final List<Ingredient> ingredientsList = new ArrayList<Ingredient>();
 
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("https")
@@ -222,7 +236,7 @@ public class ServicesAPI {
 //                                                String inggredientImage = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("image", "");
 //                                                String name = response.getJSONArray("extendedIngredients").getJSONObject(j).optString("name", "N/A");
 //                                                Log.d("INGREDIENT-NAME----", name);
-//                                                Ingredients ingredients = new Ingredients(ingredientId, inggredientImage, name);
+//                                                Ingredient ingredients = new Ingredient(ingredientId, inggredientImage, name);
 //                                                ingredientsList.add(ingredients);
 //
 //                                            }

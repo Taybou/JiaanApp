@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp.fragments.byIngredientsRecipes;
+package dz.btesto.upmc.jiaanapp.fragments.homeFragment.byNutritionRecipes;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -20,17 +20,15 @@ import java.util.List;
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
-import dz.btesto.upmc.jiaanapp.utils.Parssers;
+import dz.btesto.upmc.jiaanapp.utils.Parser;
 import dz.btesto.upmc.jiaanapp.volley.DataCallback;
 
-import static dz.btesto.upmc.jiaanapp.IngredientAuto.searchIngredients;
+public class ByNutritionRecipesFragment extends Fragment {
 
-public class ByIngredientsRecipesFragment extends Fragment {
+    private View rootView = null;
+    List<DisplayingRecipe> recipes;
 
-    private static View rootView = null;
-    static List<DisplayingRecipe> recipes;
-
-    public ByIngredientsRecipesFragment() {
+    public ByNutritionRecipesFragment() {
         // Required empty public constructor
     }
 
@@ -38,7 +36,7 @@ public class ByIngredientsRecipesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        rootView = inflater.inflate(R.layout.fragment_random_recipes, container, false);
+        rootView = inflater.inflate(R.layout.fragment_recipes, container, false);
         initializeData();
         return rootView;
     }
@@ -46,24 +44,22 @@ public class ByIngredientsRecipesFragment extends Fragment {
     private void initializeData() {
         ServicesAPI servicesAPI = new ServicesAPI();
         recipes = new ArrayList<>();
-
-        servicesAPI.getRecipesByIngredients(new DataCallback() {
+        servicesAPI.getRecipesByNutrition(new DataCallback() {
             @Override
             public void onSuccess(JSONArray result) throws JSONException {
-                recipes = Parssers.parssingRecipesByIngredients(result);
+                recipes = Parser.parsingRecipesByNutrition(result);
                 setupRecyclerView();
             }
 
             @Override
             public void onSuccess(JSONObject result) throws JSONException {
-
             }
-        }, searchIngredients);
+        }, getContext());
     }
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.random_recipes_recycler_view);
-        ByIngredientsRecipesAdapter mRandomRecipesAdapter = new ByIngredientsRecipesAdapter(recipes, getContext());
+        ByNutritionRecipesAdapter mRandomRecipesAdapter = new ByNutritionRecipesAdapter(recipes, getContext());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(mRandomRecipesAdapter);
@@ -72,34 +68,35 @@ public class ByIngredientsRecipesFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        Log.d("FRAGMENT-INGREDIENT", "onSTART");
+        Log.d("FRAGMENT-NUT", "onSTART");
     }
 
     @Override
     public void onResume() {
         super.onResume();
         initializeData();
-        Log.d("FRAGMENT-INGREDIENT", "onResume");
+        Log.d("FRAGMENT-NUT", "onResume");
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        Log.d("FRAGMENT-INGREDIENT", "onStop");
+        Log.d("FRAGMENT-NUT", "onStop");
 
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("FRAGMENT-INGREDIENT", "onPause");
+        Log.d("FRAGMENT-NUT", "onPause");
 
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        Log.d("FRAGMENT-INGREDIENT", "onAttach");
+        Log.d("FRAGMENT-NUT", "onAttach");
 
     }
 }

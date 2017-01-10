@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp.fragments.byNutritionRecipes;
+package dz.btesto.upmc.jiaanapp.fragments.homeFragment.byIngredientsRecipes;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,18 +15,18 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.RecipesDetails;
+import dz.btesto.upmc.jiaanapp.activities.RecipesDetails;
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 
 /**
  * Created by Xo on 07/01/2017.
  */
-public class ByNutritionRecipesAdapter extends RecyclerView.Adapter<ByNutritionRecipesAdapter.RecipesViewHolder> {
+public class ByIngredientsRecipesAdapter extends RecyclerView.Adapter<ByIngredientsRecipesAdapter.RecipesViewHolder> {
 
     private List<DisplayingRecipe> recipes;
     private Context context;
 
-    public ByNutritionRecipesAdapter(List<DisplayingRecipe> recipes, Context context) {
+    public ByIngredientsRecipesAdapter(List<DisplayingRecipe> recipes, Context context) {
         this.recipes = recipes;
         this.context = context;
     }

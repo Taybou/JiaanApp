@@ -1,4 +1,4 @@
-package dz.btesto.upmc.jiaanapp.fragments;
+package dz.btesto.upmc.jiaanapp.fragments.homeFragment;
 
 
 import android.os.Bundle;
@@ -34,7 +34,22 @@ public class TabFragment extends Fragment {
             }
         });
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         return view;
     }
 
