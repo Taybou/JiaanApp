@@ -36,6 +36,7 @@ public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdap
         TextView title;
         ImageView thumbnail;
         TextView idRecipe;
+        ImageView share;
 
         RecipesViewHolder(View itemView) {
             super(itemView);
@@ -43,6 +44,7 @@ public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdap
             title = (TextView) itemView.findViewById(R.id.title_recipe);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail_recipe);
             idRecipe = (TextView) itemView.findViewById(R.id.idRecipe);
+            share   = (ImageView) itemView.findViewById(R.id.shareIv);
         }
     }
 
@@ -77,7 +79,22 @@ public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdap
                 context.startActivity(intent);
             }
         });
+
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
+                share.putExtra(Intent.EXTRA_TITLE, recipe.getTitle());
+                share.putExtra(Intent.EXTRA_TEXT, "#Ji3an"+"\n"+recipe.getTitle()+"\n"+recipe.getImageUrl());
+                context.startActivity(Intent.createChooser(share, "Share recipe to..."));
+            }
+        });
+
     }
+
+
 
     @Override
     public int getItemCount() {

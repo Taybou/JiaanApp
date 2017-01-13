@@ -42,19 +42,21 @@ public class ByNutritionRecipesFragment extends Fragment {
     }
 
     private void initializeData() {
-        ServicesAPI servicesAPI = new ServicesAPI();
-        recipes = new ArrayList<>();
-        servicesAPI.getRecipesByNutrition(new DataCallback() {
-            @Override
-            public void onSuccess(JSONArray result) throws JSONException {
-                recipes = Parser.parsingRecipesByNutrition(result);
-                setupRecyclerView();
-            }
+        if(Parser.isOnline(getContext())) {
+            ServicesAPI servicesAPI = new ServicesAPI();
+            recipes = new ArrayList<>();
+            servicesAPI.getRecipesByNutrition(new DataCallback() {
+                @Override
+                public void onSuccess(JSONArray result) throws JSONException {
+                    recipes = Parser.parsingRecipesByNutrition(result);
+                    setupRecyclerView();
+                }
 
-            @Override
-            public void onSuccess(JSONObject result) throws JSONException {
-            }
-        }, getContext());
+                @Override
+                public void onSuccess(JSONObject result) throws JSONException {
+                }
+            }, getContext());
+        }
     }
 
     private void setupRecyclerView() {
