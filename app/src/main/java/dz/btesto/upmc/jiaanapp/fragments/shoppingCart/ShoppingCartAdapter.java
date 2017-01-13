@@ -17,8 +17,8 @@ import com.google.firebase.database.Query;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import dz.btesto.upmc.jiaanapp.activities.CartActivity;
 import dz.btesto.upmc.jiaanapp.R;
+import dz.btesto.upmc.jiaanapp.activities.CartActivity;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 import dz.btesto.upmc.jiaanapp.utils.FirebaseRecyclerAdapter;
 
@@ -31,13 +31,14 @@ public class ShoppingCartAdapter extends FirebaseRecyclerAdapter<ShoppingCartAda
     private Context mContext;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView title, idRecipe;
+        public TextView title, numberOfIngredients, idRecipe;
         public ImageView thumbnail;
 
         public MyViewHolder(View view) {
             super(view);
             title = (TextView) view.findViewById(R.id.title);
             idRecipe = (TextView) view.findViewById(R.id.idRecipe);
+            numberOfIngredients = (TextView) view.findViewById(R.id.ingredients_number);
             thumbnail = (ImageView) view.findViewById(R.id.thumbnail);
         }
     }
@@ -64,6 +65,7 @@ public class ShoppingCartAdapter extends FirebaseRecyclerAdapter<ShoppingCartAda
         final Recipe recipe = getItem(position);
         holder.title.setText(recipe.getTitle());
         holder.idRecipe.setText(String.valueOf(recipe.getRecipeId()));
+        holder.numberOfIngredients.setText("Ingredients : " + recipe.getIngredientsList().size());
 
         Glide.with(mContext)
                 .load(recipe.getImageUrl())
@@ -75,6 +77,7 @@ public class ShoppingCartAdapter extends FirebaseRecyclerAdapter<ShoppingCartAda
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mContext, CartActivity.class);
+                intent.putExtra("idRecipe", recipe.getRecipeId() + "");
                 intent.putExtra("title", recipe.getTitle());
                 intent.putExtra("thumbnailURL", recipe.getImageUrl());
                 intent.putExtra("cartList", (Serializable) recipe.getIngredientsList());

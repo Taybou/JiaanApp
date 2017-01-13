@@ -77,6 +77,7 @@ public class ShoppingCartFragment extends Fragment {
         mQuery = rootRef
                 .child(RECIPES_COLUMN)
                 .child("userID");
+
     }
 
     private void setupRecyclerView() {

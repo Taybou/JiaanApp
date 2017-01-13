@@ -24,16 +24,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FragmentTransaction mFragmentTransaction;
     private FirebaseAuth mAuth;
+    private FloatingActionButton fab;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab_search);
+        fab = (FloatingActionButton) findViewById(R.id.fab_search);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +90,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home) {
             mFragmentTransaction.replace(R.id.containerView, new TabFragment());
         } else if (id == R.id.nav_shopping_cart) {
+            toolbar.setTitle("Shopping Cart");
+            fab.setVisibility(View.INVISIBLE);
             mFragmentTransaction.replace(R.id.containerView, new ShoppingCartFragment());
         } else if (id == R.id.nav_favorite_recipes) {
 
