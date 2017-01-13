@@ -68,12 +68,11 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
         myRef = database.getReference();
         ingredientsCart = new HashMap<>();
         arrayIngredientsCart = new ArrayList<>();
+
         initView();
-        // final ServicesAPI servicesAPI = new ServicesAPI();
         Intent intent = getIntent();
         int idRecipe = intent.getIntExtra("recipeID", -1);
-        // Log.d("idRecipe", String.valueOf(idRecipe));
-        //cartIntent = new Intent(RecipesDetails.this, CartActivity.class);
+
         useData(idRecipe);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -127,6 +126,9 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                 toolbar.setTitle(recipe.getTitle());
                 setSupportActionBar(toolbar);
 
+                getSupportActionBar().setDisplayShowTitleEnabled(true);
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
             }
 
             @Override
@@ -155,6 +157,8 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                         .child("userID")
                         .child(String.valueOf(recipe.getRecipeId()))
                         .setValue(arrayIngredientsCart);
+
+                recipe.setIngredientsList(arrayIngredientsCart);
 
                 myRef.child(RECIPES_COLUMN)
                         .child("userID")

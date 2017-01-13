@@ -53,5 +53,4 @@
         app:srcCompat="@drawable/ic_action_cart" />
 
 
-
 </android.support.design.widget.CoordinatorLayout>

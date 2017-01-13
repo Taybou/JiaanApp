@@ -1,12 +1,22 @@
 package dz.btesto.upmc.jiaanapp.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Iterator;
 import java.util.List;
@@ -15,9 +25,14 @@ import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.custom.CartCustomAdapter;
 import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 
+import static dz.btesto.upmc.jiaanapp.activities.RecipesDetails.INGREDIENTS_COLUMN;
+import static dz.btesto.upmc.jiaanapp.activities.RecipesDetails.RECIPES_COLUMN;
+
 public class CartActivity extends AppCompatActivity {
 
     private List<Ingredient> ingredients;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference myRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,32 +41,85 @@ public class CartActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        myRef = database.getReference();
+
         Intent intent = getIntent();
+        final String idRecipe = intent.getStringExtra("idRecipe");
         String title = intent.getStringExtra("title");
         String thumbnailURL = intent.getStringExtra("thumbnailURL");
         ingredients = (List<Ingredient>) intent.getSerializableExtra("cartList");
 
+        ImageView recipeImage = (ImageView) findViewById(R.id.recipeImage);
+        Glide.with(getApplicationContext()).load(thumbnailURL).into(recipeImage);
+
         Iterator<Ingredient> i = ingredients.iterator();
         while (i.hasNext()) {
-            Ingredient s = i.next(); // must be called before you can call i.remove()
+            Ingredient s = i.next();
             if (s.isState()) {
                 i.remove();
             }
         }
 
         setupRecyclerView();
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialogConfirmation(idRecipe);
+            }
+        });
+
         toolbar.setTitle(title);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     private void setupRecyclerView() {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cartIngredientLv);
-        CartCustomAdapter adapter = new CartCustomAdapter(ingredients);
+        CartCustomAdapter adapter = new CartCustomAdapter(ingredients, getApplicationContext());
 
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+    }
+
+    private void dialogConfirmation(final String idRecipe) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle("Ingredient");
+        alertDialogBuilder.setMessage("You want to delete this shopping cart ?");
+        alertDialogBuilder.setPositiveButton("Validate", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                myRef.child(INGREDIENTS_COLUMN)
+                        .child("userID")
+                        .child(idRecipe)
+                        .removeValue();
+
+                myRef.child(RECIPES_COLUMN)
+                        .child("userID")
+                        .child(idRecipe)
+                        .removeValue();
+
+                Toast.makeText(getApplicationContext(), "Great, ...", Toast.LENGTH_LONG).show();
+                finish();
+
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        //alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
     }
 
 }
