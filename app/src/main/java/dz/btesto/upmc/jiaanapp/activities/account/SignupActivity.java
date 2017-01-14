@@ -20,6 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.activities.MainActivity;
+import dz.btesto.upmc.jiaanapp.utils.Parser;
 
 
 public class SignupActivity extends AppCompatActivity {
@@ -36,93 +37,94 @@ public class SignupActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        if (Parser.isOnline(getApplicationContext())){
+            //Get Firebase auth instance
+            auth = FirebaseAuth.getInstance();
 
-        //Get Firebase auth instance
-        auth = FirebaseAuth.getInstance();
+            btnSignIn = (Button) findViewById(R.id.sign_in_button);
+            btnSignUp = (Button) findViewById(R.id.sign_up_button);
+            inputEmail = (EditText) findViewById(R.id.email);
+            inputAddress = (EditText) findViewById(R.id.address);
+            inputMobile = (EditText) findViewById(R.id.mobile);
+            inputPseudo = (EditText) findViewById(R.id.pseudo);
+            inputPassword = (EditText) findViewById(R.id.password);
+            // progressBar = (ProgressBar) findViewById(R.id.progressBar);
+            btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
 
-        btnSignIn = (Button) findViewById(R.id.sign_in_button);
-        btnSignUp = (Button) findViewById(R.id.sign_up_button);
-        inputEmail = (EditText) findViewById(R.id.email);
-        inputAddress = (EditText) findViewById(R.id.address);
-        inputMobile = (EditText) findViewById(R.id.mobile);
-        inputPseudo = (EditText) findViewById(R.id.pseudo);
-        inputPassword = (EditText) findViewById(R.id.password);
-        // progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        btnResetPassword = (Button) findViewById(R.id.btn_reset_password);
-
-        btnResetPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
-            }
-        });
-
-        btnSignIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String email = inputEmail.getText().toString().trim();
-                final String password = inputPassword.getText().toString().trim();
-                final String address = inputAddress.getText().toString().trim();
-                final String pseudo = inputPseudo.getText().toString().trim();
-                final String mobile = inputMobile.getText().toString().trim();
-
-                Log.i("dddddfff", password);
-
-                if (TextUtils.isEmpty(email)) {
-                    Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
+            btnResetPassword.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(SignupActivity.this, ResetPasswordActivity.class));
                 }
+            });
 
-                if (TextUtils.isEmpty(password)) {
-                    Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
+            btnSignIn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
                 }
+            });
 
-                if (password.length() < 6) {
-                    Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+            btnSignUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                //progressBar.setVisibility(View.VISIBLE);
+                    String email = inputEmail.getText().toString().trim();
+                    final String password = inputPassword.getText().toString().trim();
+                    final String address = inputAddress.getText().toString().trim();
+                    final String pseudo = inputPseudo.getText().toString().trim();
+                    final String mobile = inputMobile.getText().toString().trim();
 
-                //create user
-                auth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
+                    Log.i("dddddfff", password);
 
-                                String uID = task.getResult().getUser().getUid();
-                                String email = task.getResult().getUser().getEmail();
+                    if (TextUtils.isEmpty(email)) {
+                        Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (TextUtils.isEmpty(password)) {
+                        Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    if (password.length() < 6) {
+                        Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    //progressBar.setVisibility(View.VISIBLE);
+
+                    //create user
+                    auth.createUserWithEmailAndPassword(email, password)
+                            .addOnCompleteListener(SignupActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                    String uID = task.getResult().getUser().getUid();
+                                    String email = task.getResult().getUser().getEmail();
 
 
-                                Account account = new Account(email, pseudo, address, mobile, password);
-                                mRef.child("users").child(uID).setValue(account);
+                                    Account account = new Account(email, pseudo, address, mobile, password);
+                                    mRef.child("users").child(uID).setValue(account);
 
-                                Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                // progressBar.setVisibility(View.GONE);
-                                // If sign in fails, display a message to the user. If sign in succeeds
-                                // the auth state listener will be notified and logic to handle the
-                                // signed in user can be handled in the listener.
-                                if (!task.isSuccessful()) {
-                                    Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                    finish();
+                                    Toast.makeText(SignupActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
+                                    // progressBar.setVisibility(View.GONE);
+                                    // If sign in fails, display a message to the user. If sign in succeeds
+                                    // the auth state listener will be notified and logic to handle the
+                                    // signed in user can be handled in the listener.
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
+                                                Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        startActivity(new Intent(SignupActivity.this, MainActivity.class));
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-            }
-        });
+                }
+            });
+        }
     }
 
 
