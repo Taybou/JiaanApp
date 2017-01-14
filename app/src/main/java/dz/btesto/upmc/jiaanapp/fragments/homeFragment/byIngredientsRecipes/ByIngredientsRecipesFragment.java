@@ -51,21 +51,23 @@ public class ByIngredientsRecipesFragment extends Fragment {
     }
 
     private void initializeData() {
-        ServicesAPI servicesAPI = new ServicesAPI();
-        recipes = new ArrayList<>();
+        if(Parser.isOnline(getContext())) {
+            ServicesAPI servicesAPI = new ServicesAPI();
+            recipes = new ArrayList<>();
 
-        servicesAPI.getRecipesByIngredients(new DataCallback() {
-            @Override
-            public void onSuccess(JSONArray result) throws JSONException {
-                recipes = Parser.parsingRecipesByIngredients(result);
-                setupRecyclerView();
-            }
+            servicesAPI.getRecipesByIngredients(new DataCallback() {
+                @Override
+                public void onSuccess(JSONArray result) throws JSONException {
+                    recipes = Parser.parsingRecipesByIngredients(result);
+                    setupRecyclerView();
+                }
 
-            @Override
-            public void onSuccess(JSONObject result) throws JSONException {
+                @Override
+                public void onSuccess(JSONObject result) throws JSONException {
 
-            }
-        }, searchIngredients);
+                }
+            }, searchIngredients);
+        }
     }
 
     private void setupRecyclerView() {

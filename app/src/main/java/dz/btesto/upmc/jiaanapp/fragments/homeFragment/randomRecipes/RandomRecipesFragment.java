@@ -1,6 +1,8 @@
 package dz.btesto.upmc.jiaanapp.fragments.homeFragment.randomRecipes;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,21 +45,25 @@ public class RandomRecipesFragment extends Fragment {
     }
 
     private void initializeData() {
-        ServicesAPI servicesAPI = new ServicesAPI();
-        recipes = new ArrayList<>();
 
-        servicesAPI.getRandomRecipes(new DataCallback() {
-            @Override
-            public void onSuccess(JSONObject result) throws JSONException {
-                recipes = Parser.parsingRandomRecipes(result);
-                setupRecyclerView();
-            }
 
-            @Override
-            public void onSuccess(JSONArray result) throws JSONException {
+        if(Parser.isOnline(getContext())) {
+            ServicesAPI servicesAPI = new ServicesAPI();
+            recipes = new ArrayList<>();
 
-            }
-        });
+            servicesAPI.getRandomRecipes(new DataCallback() {
+                @Override
+                public void onSuccess(JSONObject result) throws JSONException {
+                    recipes = Parser.parsingRandomRecipes(result);
+                    setupRecyclerView();
+                }
+
+                @Override
+                public void onSuccess(JSONArray result) throws JSONException {
+
+                }
+            });
+        }
     }
 
     private void setupRecyclerView() {
@@ -100,5 +107,7 @@ public class RandomRecipesFragment extends Fragment {
         Log.d("FRAGMENT-RAND", "onAttach");
 
     }
+
+
 
 }

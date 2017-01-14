@@ -35,6 +35,7 @@ public class MainActivityTest extends AppCompatActivity {
         nutritionsbtn = (Button) findViewById(R.id.nutritions);
 
 
+
         final Intent intent = new Intent(MainActivityTest.this, IngredientAuto.class);
 
         final Intent intent2 = new Intent(MainActivityTest.this, RecipesDetails.class);

@@ -8,14 +8,15 @@
     app:layout_scrollFlags="scroll"
     tools:context=".activities.account.LoginActivity">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/singin"
+
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
@@ -24,7 +25,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fennec Market"
+                android:text="Jiaan"
                 android:textColor="@color/colorWhite"
                 android:textSize="25dp" />
 
@@ -130,7 +131,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@color/colorPrimaryDark"
+                android:background="@color/semi_transparent"
                 android:text="@string/action_sign_in_short"
                 android:textColor="@color/colorWhite"
                 android:textStyle="bold" />
@@ -159,7 +160,7 @@
                 android:textSize="15dp" />
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
