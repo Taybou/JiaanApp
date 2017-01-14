@@ -16,6 +16,10 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     public TabFragmentAdapter(FragmentManager fm) {
         super(fm);
+//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_restaurant_menu);
+//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant_menu);
+//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_restaurant_menu);
+
     }
 
     @Override
@@ -42,11 +46,11 @@ public class TabFragmentAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                return "First Fragment";
+                return "";
             case 1:
-                return "Second Fragment";
+                return "";
             case 2:
-                return "Third Fragment";
+                return "";
 
         }
         return null;

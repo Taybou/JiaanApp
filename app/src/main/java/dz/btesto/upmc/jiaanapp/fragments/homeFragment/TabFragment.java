@@ -31,8 +31,26 @@ public class TabFragment extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
+                //for (int i = 0; i < tabLayout.getTabCount(); i++) {
+                tabLayout.getTabAt(0).setIcon(R.drawable.ic_restaurant_menu);
+                tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant);
+                tabLayout.getTabAt(2).setIcon(R.drawable.ic_room_service);
+
+                //}
             }
         });
+
+//        actionBar.addTab(actionBar.newTab().setText("ddd1")
+//                .setIcon(R.drawable.ic_restaurant_menu));
+//        actionBar.addTab(actionBar.newTab().setText("ddd2")
+//                .setIcon(R.drawable.ic_restaurant_menu));
+//        actionBar.addTab(actionBar.newTab().setText("ddd3")
+//                .setIcon(R.drawable.ic_restaurant_menu));
+
+//        toolbar.addTab(actionBar.newTab().setText(tabs[i])
+//                .setIcon(NewsFeedActivity.this.getResources().getDrawable(ICONS[i]))
+//                .setTabListener(this));
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
