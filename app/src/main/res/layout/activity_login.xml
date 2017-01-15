@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgjiaan"
+    android:background="@drawable/background_loginscreen"
     android:fitsSystemWindows="true"
     tools:context=".activities.account.LoginActivity">
 
@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/bgjiaan"
+            android:background="@drawable/background_loginscreen"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
@@ -31,11 +31,11 @@
                 android:textSize="25dp" />
 
             <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="30dp"
-                android:src="@mipmap/ic_launcher" />
+                android:src="@drawable/logo" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"

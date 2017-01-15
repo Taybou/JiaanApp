@@ -15,11 +15,20 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.activities.RecipesDetails;
+import dz.btesto.upmc.jiaanapp.activities.recipesDetails.RecipesDetails;
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 
 /**
- * Created by Xo on 07/01/2017.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
 public class ByIngredientsRecipesAdapter extends RecyclerView.Adapter<ByIngredientsRecipesAdapter.RecipesViewHolder> {
 

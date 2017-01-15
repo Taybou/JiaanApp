@@ -26,8 +26,8 @@ import java.util.Map;
 
 import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
-import dz.btesto.upmc.jiaanapp.volley.AppController;
-import dz.btesto.upmc.jiaanapp.volley.DataCallback;
+import dz.btesto.upmc.jiaanapp.utils.volley.AppController;
+import dz.btesto.upmc.jiaanapp.utils.volley.DataCallback;
 
 import static android.content.Context.MODE_PRIVATE;
 import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS;
@@ -39,13 +39,21 @@ import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MIN_FAT;
 import static dz.btesto.upmc.jiaanapp.activities.SettingsActivity.PREFS_MIN_PROT;
 
 /**
- * Created by besto on 15/12/16.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
-
 public class ServicesAPI {
 
     private static final String TAG = "Json-Respons";
-    private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=10";
+    private static final String randomUrl = "https://spoonacular-recipe-food-nutrition-v1.p.mashape.com/recipes/random?limitLicense=false&number=20";
     public int successCount = 0;
     private SharedPreferences sharedPreferences;
 

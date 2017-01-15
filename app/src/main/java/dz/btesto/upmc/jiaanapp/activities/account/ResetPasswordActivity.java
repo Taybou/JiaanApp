@@ -15,7 +15,18 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 import dz.btesto.upmc.jiaanapp.R;
-
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText inputEmail;

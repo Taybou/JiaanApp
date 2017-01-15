@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="dz.btesto.upmc.jiaanapp.activities.RecipesDetails">
+    tools:context="dz.btesto.upmc.jiaanapp.activities.recipesDetails.RecipesDetails">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -26,10 +26,9 @@
                 android:id="@+id/recipeImage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
-                app:layout_collapseMode="pin"
-                />
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="pin" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -44,13 +43,20 @@
     <include layout="@layout/content_recipes_details" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
         app:layout_anchor="@id/app_bar"
         app:layout_anchorGravity="bottom|end"
-        app:srcCompat="@drawable/ic_action_cart" />
+        android:src="@drawable/ic_star" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@drawable/ic_action_cart" />
 
 </android.support.design.widget.CoordinatorLayout>

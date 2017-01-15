@@ -9,16 +9,21 @@ import dz.btesto.upmc.jiaanapp.fragments.homeFragment.byNutritionRecipes.ByNutri
 import dz.btesto.upmc.jiaanapp.fragments.homeFragment.randomRecipes.RandomRecipesFragment;
 
 /**
- * Created by Xo on 08/01/2017.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
-
 public class TabFragmentAdapter extends FragmentPagerAdapter {
 
     public TabFragmentAdapter(FragmentManager fm) {
         super(fm);
-//        tabLayout.getTabAt(0).setIcon(R.drawable.ic_restaurant_menu);
-//        tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant_menu);
-//        tabLayout.getTabAt(2).setIcon(R.drawable.ic_restaurant_menu);
 
     }
 

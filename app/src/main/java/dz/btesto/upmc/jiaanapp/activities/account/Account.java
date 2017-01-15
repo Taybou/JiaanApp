@@ -3,7 +3,16 @@ package dz.btesto.upmc.jiaanapp.activities.account;
 import org.parceler.Parcel;
 
 /**
- * Created by Xo on 28/08/2016.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
 @Parcel
 public class Account {

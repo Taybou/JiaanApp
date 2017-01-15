@@ -11,10 +11,10 @@
             android:id="@+id/nav_shopping_cart"
             android:icon="@drawable/ic_shopping_basket"
             android:title="Shopping Cart" />
-        <!--<item-->
-        <!--android:id="@+id/nav_favorite_recipes"-->
-        <!--android:icon="@drawable/ic_menu_settings"-->
-        <!--android:title="My recipes" />-->
+        <item
+            android:id="@+id/nav_favorite_recipes"
+            android:icon="@drawable/ic_restaurant_menu"
+            android:title="My recipes" />
         <item
             android:id="@+id/nav_setting"
             android:icon="@drawable/ic_menu_settings"

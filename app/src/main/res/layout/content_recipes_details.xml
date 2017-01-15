@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="dz.btesto.upmc.jiaanapp.activities.RecipesDetails"
+    tools:context="dz.btesto.upmc.jiaanapp.activities.recipesDetails.RecipesDetails"
     tools:showIn="@layout/activity_recipes_details">
 
     <LinearLayout

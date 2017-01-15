@@ -3,9 +3,17 @@ package dz.btesto.upmc.jiaanapp.entity;
 import java.io.Serializable;
 
 /**
- * Created by besto on 11/12/16.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
-
 public class Ingredient implements Serializable {
 
     private int ingredientsId;

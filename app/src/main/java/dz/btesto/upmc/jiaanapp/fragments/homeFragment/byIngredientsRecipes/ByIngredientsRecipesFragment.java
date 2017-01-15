@@ -1,12 +1,9 @@
 package dz.btesto.upmc.jiaanapp.fragments.homeFragment.byIngredientsRecipes;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +15,25 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import dz.btesto.upmc.jiaanapp.activities.IngredientAuto;
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 import dz.btesto.upmc.jiaanapp.utils.Parser;
-import dz.btesto.upmc.jiaanapp.volley.DataCallback;
+import dz.btesto.upmc.jiaanapp.utils.volley.DataCallback;
 
-import static dz.btesto.upmc.jiaanapp.activities.IngredientAuto.searchIngredients;
-
+import static dz.btesto.upmc.jiaanapp.activities.autocomplete.IngredientAuto.searchIngredients;
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class ByIngredientsRecipesFragment extends Fragment {
 
     private static View rootView = null;
@@ -41,17 +48,14 @@ public class ByIngredientsRecipesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_recipes, container, false);
-
-        if (searchIngredients == null)
-            getContext().startActivity(new Intent(getContext(), IngredientAuto.class));
-        else
+        if (searchIngredients != null)
             initializeData();
 
         return rootView;
     }
 
     private void initializeData() {
-        if(Parser.isOnline(getContext())) {
+        if (Parser.isOnline(getContext())) {
             ServicesAPI servicesAPI = new ServicesAPI();
             recipes = new ArrayList<>();
 
@@ -78,37 +82,11 @@ public class ByIngredientsRecipesFragment extends Fragment {
         recyclerView.setAdapter(mRandomRecipesAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("FRAGMENT-INGREDIENT", "onSTART");
-    }
 
     @Override
     public void onResume() {
         super.onResume();
         initializeData();
-        Log.d("FRAGMENT-INGREDIENT", "onResume");
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("FRAGMENT-INGREDIENT", "onStop");
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("FRAGMENT-INGREDIENT", "onPause");
-
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d("FRAGMENT-INGREDIENT", "onAttach");
-
-    }
 }

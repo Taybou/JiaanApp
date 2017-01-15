@@ -17,6 +17,18 @@ import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.entity.Ingredient;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class Parser {
 
     public static Recipe parsingRecipeDetails(JSONObject response) throws JSONException {
@@ -102,7 +114,7 @@ public class Parser {
         ConnectivityManager conMgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = conMgr.getActiveNetworkInfo();
 
-        if(netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()){
+        if (netInfo == null || !netInfo.isConnected() || !netInfo.isAvailable()) {
             Toast.makeText(context, "No Internet connection!", Toast.LENGTH_LONG).show();
             return false;
         }

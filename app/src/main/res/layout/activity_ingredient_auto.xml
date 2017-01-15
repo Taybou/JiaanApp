@@ -9,9 +9,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="horizontal"
-    tools:context="dz.btesto.upmc.jiaanapp.activities.IngredientAuto">
+    tools:context="dz.btesto.upmc.jiaanapp.activities.autocomplete.IngredientAuto">
 
-    <dz.btesto.upmc.jiaanapp.custom.IngredientCompletionView
+    <dz.btesto.upmc.jiaanapp.activities.autocomplete.IngredientCompletionView
         android:id="@+id/searchView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"

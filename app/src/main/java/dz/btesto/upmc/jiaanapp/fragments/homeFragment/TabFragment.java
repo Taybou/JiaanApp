@@ -1,6 +1,7 @@
 package dz.btesto.upmc.jiaanapp.fragments.homeFragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -11,7 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import dz.btesto.upmc.jiaanapp.R;
+import dz.btesto.upmc.jiaanapp.activities.autocomplete.IngredientAuto;
 
+import static dz.btesto.upmc.jiaanapp.activities.autocomplete.IngredientAuto.searchIngredients;
+
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class TabFragment extends Fragment {
 
     public static TabLayout tabLayout;
@@ -31,41 +47,26 @@ public class TabFragment extends Fragment {
             @Override
             public void run() {
                 tabLayout.setupWithViewPager(viewPager);
-                //for (int i = 0; i < tabLayout.getTabCount(); i++) {
                 tabLayout.getTabAt(0).setIcon(R.drawable.ic_restaurant_menu);
-                tabLayout.getTabAt(1).setIcon(R.drawable.ic_restaurant);
+                tabLayout.getTabAt(1).setIcon(R.drawable.calories);
                 tabLayout.getTabAt(2).setIcon(R.drawable.ic_room_service);
-
-                //}
             }
         });
-
-//        actionBar.addTab(actionBar.newTab().setText("ddd1")
-//                .setIcon(R.drawable.ic_restaurant_menu));
-//        actionBar.addTab(actionBar.newTab().setText("ddd2")
-//                .setIcon(R.drawable.ic_restaurant_menu));
-//        actionBar.addTab(actionBar.newTab().setText("ddd3")
-//                .setIcon(R.drawable.ic_restaurant_menu));
-
-//        toolbar.addTab(actionBar.newTab().setText(tabs[i])
-//                .setIcon(NewsFeedActivity.this.getResources().getDrawable(ICONS[i]))
-//                .setTabListener(this));
-
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
             }
 
             @Override
             public void onPageSelected(int position) {
-
+                if (position == 2 && searchIngredients == null) {
+                    getContext().startActivity(new Intent(getContext(), IngredientAuto.class));
+                }
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
             }
         });
         return view;

@@ -1,5 +1,6 @@
 package dz.btesto.upmc.jiaanapp.fragments.shoppingCart;
 
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -24,7 +25,9 @@ import java.util.List;
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 
-import static dz.btesto.upmc.jiaanapp.activities.RecipesDetails.RECIPES_COLUMN;
+import static android.content.Context.MODE_PRIVATE;
+import static dz.btesto.upmc.jiaanapp.activities.MainActivity.MY_PREFS_NAME;
+import static dz.btesto.upmc.jiaanapp.activities.recipesDetails.RecipesDetails.RECIPES_COLUMN;
 
 
 public class ShoppingCartFragment extends Fragment {
@@ -73,10 +76,13 @@ public class ShoppingCartFragment extends Fragment {
     }
 
     private void setupFireBase() {
+        SharedPreferences prefs = getContext().getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        String userID = prefs.getString("userID", null);
+
         DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
         mQuery = rootRef
                 .child(RECIPES_COLUMN)
-                .child("userID");
+                .child(userID);
 
     }
 

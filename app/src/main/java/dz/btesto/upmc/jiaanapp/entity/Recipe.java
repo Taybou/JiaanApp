@@ -4,9 +4,17 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by besto on 11/12/16.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
-
 public class Recipe implements Serializable {
 
     private int recipeId;

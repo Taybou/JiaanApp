@@ -15,11 +15,20 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.activities.RecipesDetails;
+import dz.btesto.upmc.jiaanapp.activities.recipesDetails.RecipesDetails;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 
 /**
- * Created by Xo on 07/01/2017.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
 public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdapter.RecipesViewHolder> {
 
@@ -44,7 +53,7 @@ public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdap
             title = (TextView) itemView.findViewById(R.id.title_recipe);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail_recipe);
             idRecipe = (TextView) itemView.findViewById(R.id.idRecipe);
-            share   = (ImageView) itemView.findViewById(R.id.shareIv);
+            share = (ImageView) itemView.findViewById(R.id.shareIv);
         }
     }
 
@@ -87,13 +96,12 @@ public class RandomRecipesAdapter extends RecyclerView.Adapter<RandomRecipesAdap
                 share.setType("text/plain");
                 share.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
                 share.putExtra(Intent.EXTRA_TITLE, recipe.getTitle());
-                share.putExtra(Intent.EXTRA_TEXT, "#Ji3an"+"\n"+recipe.getTitle()+"\n"+recipe.getImageUrl());
+                share.putExtra(Intent.EXTRA_TEXT, "#Ji3an" + "\n" + recipe.getTitle() + "\n" + recipe.getImageUrl());
                 context.startActivity(Intent.createChooser(share, "Share recipe to..."));
             }
         });
 
     }
-
 
 
     @Override

@@ -1,9 +1,17 @@
 package dz.btesto.upmc.jiaanapp.entity;
 
 /**
- * Created by besto on 16/12/16.
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
  */
-
 public class DisplayingRecipe {
 
     private int recipeId;

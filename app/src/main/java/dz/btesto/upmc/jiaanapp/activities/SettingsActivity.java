@@ -11,6 +11,18 @@ import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
 import dz.btesto.upmc.jiaanapp.R;
 
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class SettingsActivity extends AppCompatActivity {
 
     private int maxCal;

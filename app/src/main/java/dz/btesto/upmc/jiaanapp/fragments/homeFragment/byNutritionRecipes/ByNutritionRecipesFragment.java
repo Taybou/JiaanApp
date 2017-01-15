@@ -1,11 +1,9 @@
 package dz.btesto.upmc.jiaanapp.fragments.homeFragment.byNutritionRecipes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +19,19 @@ import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.entity.DisplayingRecipe;
 import dz.btesto.upmc.jiaanapp.services.ServicesAPI;
 import dz.btesto.upmc.jiaanapp.utils.Parser;
-import dz.btesto.upmc.jiaanapp.volley.DataCallback;
-
+import dz.btesto.upmc.jiaanapp.utils.volley.DataCallback;
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class ByNutritionRecipesFragment extends Fragment {
 
     private View rootView = null;
@@ -42,7 +51,7 @@ public class ByNutritionRecipesFragment extends Fragment {
     }
 
     private void initializeData() {
-        if(Parser.isOnline(getContext())) {
+        if (Parser.isOnline(getContext())) {
             ServicesAPI servicesAPI = new ServicesAPI();
             recipes = new ArrayList<>();
             servicesAPI.getRecipesByNutrition(new DataCallback() {
@@ -67,38 +76,10 @@ public class ByNutritionRecipesFragment extends Fragment {
         recyclerView.setAdapter(mRandomRecipesAdapter);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d("FRAGMENT-NUT", "onSTART");
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        initializeData();
+//    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initializeData();
-        Log.d("FRAGMENT-NUT", "onResume");
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.d("FRAGMENT-NUT", "onStop");
-
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.d("FRAGMENT-NUT", "onPause");
-
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.d("FRAGMENT-NUT", "onAttach");
-
-    }
 }

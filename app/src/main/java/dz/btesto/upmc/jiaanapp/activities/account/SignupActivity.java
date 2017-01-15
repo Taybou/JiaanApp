@@ -21,7 +21,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import dz.btesto.upmc.jiaanapp.R;
 import dz.btesto.upmc.jiaanapp.activities.MainActivity;
 
-
+/**
+ * -------------------------
+ * ### JI3AN APPLICATION ###
+ * -------------------------
+ * <p>
+ * Created by :
+ * ------------
+ * ++ Nour Elislam SAIDI
+ * ++ Mohamed Tayeb BENTERKI
+ * <p>
+ * ------ 2016-2017 --------
+ */
 public class SignupActivity extends AppCompatActivity {
 
     private EditText inputEmail, inputPassword, inputMobile, inputAddress, inputPseudo;

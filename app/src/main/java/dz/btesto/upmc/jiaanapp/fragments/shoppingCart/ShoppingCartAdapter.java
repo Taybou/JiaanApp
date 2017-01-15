@@ -18,7 +18,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import dz.btesto.upmc.jiaanapp.R;
-import dz.btesto.upmc.jiaanapp.activities.CartActivity;
+import dz.btesto.upmc.jiaanapp.activities.shoppingCart.CartActivity;
 import dz.btesto.upmc.jiaanapp.entity.Recipe;
 import dz.btesto.upmc.jiaanapp.utils.FirebaseRecyclerAdapter;
 
