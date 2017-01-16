@@ -11,7 +11,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -101,7 +100,7 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                 if (arrayIngredientsCart.size() > 0) {
                     dialogConfirmation();
                 } else {
-                    Toast.makeText(getApplicationContext(), "Sorry ....", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), "You should added at least one ingredient", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -115,7 +114,13 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                 }
             });
         } else {
-            fabFavorite.setVisibility(View.INVISIBLE);
+            fabFavorite.setImageResource(R.drawable.ic_delete);
+            fabFavorite.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    dialogFavoriteDelete();
+                }
+            });
         }
     }
 
@@ -128,17 +133,13 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
             @Override
             public void onSuccess(JSONObject response) throws JSONException {
                 recipe = Parser.parsingRecipeDetails(response);
-                Log.d("recipetest", recipe.getInstructions());
                 cookingTimeTv.setText(Parser.formatTime(recipe.getCookingMinutes()));
                 instructionTv.setText(recipe.getInstructions());
                 Glide.with(getApplicationContext()).load(recipe.getImageUrl()).into(recipeImage);
 
-                ingredientses = new ArrayList<Ingredient>();
-                // for (int i = 0; i < recipe.getIngredientsList().size(); i++) {
-                ingredientses = recipe.getIngredientsList();// .add(recipe.getIngredientsList().get(i));
-                //Log.d("NameIngredient", recipe.getIngredientsList().get(i).getName());
-                //   }
-                Log.d("Name", recipe.getIngredientsList().get(1).getName());
+                ingredientses = new ArrayList<>();
+                ingredientses = recipe.getIngredientsList();
+
                 recyclerView = (RecyclerView) findViewById(R.id.ingredientLv);
                 recyclerView.setHasFixedSize(true);
                 layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -192,7 +193,7 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                         .child(String.valueOf(recipe.getRecipeId()))
                         .setValue(recipe);
 
-                Toast.makeText(getApplicationContext(), "Great, ...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Added with success", Toast.LENGTH_LONG).show();
                 arrayIngredientsCart = new ArrayList<>();
             }
         });
@@ -224,8 +225,40 @@ public class RecipesDetails extends AppCompatActivity implements CustomAdapter.S
                         .child(String.valueOf(recipe.getRecipeId()))
                         .setValue(recipe);
 
-                Toast.makeText(getApplicationContext(), "Great ...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Added with success", Toast.LENGTH_LONG).show();
                 arrayIngredientsCart = new ArrayList<>();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        //alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
+
+    private void dialogFavoriteDelete() {
+        SharedPreferences prefs = getSharedPreferences(MY_PREFS_NAME, MODE_PRIVATE);
+        final String userID = prefs.getString("userID", null);
+
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        alertDialogBuilder.setTitle("Recipe");
+        alertDialogBuilder.setMessage("You want to delete this recipe from favorite recipes ?");
+        alertDialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface arg0, int arg1) {
+                myRef.child(FAVORITE_RECIPES_COLUMN)
+                        .child(userID)
+                        .child(String.valueOf(recipe.getRecipeId()))
+                        .removeValue();
+
+                Toast.makeText(getApplicationContext(), "deleted with success", Toast.LENGTH_LONG).show();
+                finish();
             }
         });
 

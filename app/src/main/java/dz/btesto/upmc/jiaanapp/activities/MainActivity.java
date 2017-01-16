@@ -54,7 +54,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private FirebaseAuth mAuth;
     private FloatingActionButton fab;
     private Toolbar toolbar;
-    private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener authStateListener;
     private DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
 
@@ -131,7 +130,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void dialogAbout() {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
         alertDialogBuilder.setTitle("About");
         alertDialogBuilder.setMessage("Ji3an App <> with ♥ by BTESTO\n\n" +
                 "Contributors \n" +

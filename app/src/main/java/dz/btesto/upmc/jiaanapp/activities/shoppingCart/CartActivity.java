@@ -109,7 +109,7 @@ public class CartActivity extends AppCompatActivity {
 
         alertDialogBuilder.setTitle("Ingredient");
         alertDialogBuilder.setMessage("You want to delete this shopping cart ?");
-        alertDialogBuilder.setPositiveButton("Validate", new DialogInterface.OnClickListener() {
+        alertDialogBuilder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 myRef.child(INGREDIENTS_COLUMN)
@@ -122,7 +122,7 @@ public class CartActivity extends AppCompatActivity {
                         .child(idRecipe)
                         .removeValue();
 
-                Toast.makeText(getApplicationContext(), "Great, ...", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "deleted with success", Toast.LENGTH_LONG).show();
                 finish();
 
             }

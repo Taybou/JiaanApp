@@ -3,9 +3,9 @@ package dz.btesto.upmc.jiaanapp.activities;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.yahoo.mobile.client.android.util.rangeseekbar.RangeSeekBar;
 
@@ -118,7 +118,6 @@ public class SettingsActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 sharedPreferences
                         .edit()
                         .putInt(PREFS_MAX_CAL, maxCal)
@@ -129,10 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
                         .putInt(PREFS_MIN_PROT, minProt)
                         .apply();
 
-                Log.d("Params", PREFS_MAX_CAL + maxCal + PREFS_MIN_CAL + minCal +
-                        PREFS_MAX_FAT + maxFat + PREFS_MIN_FAT + minFat +
-                        PREFS_MAX_PROT + maxProt + PREFS_MIN_PROT + minProt);
-
+                Toast.makeText(getApplicationContext(), "Saved with success", Toast.LENGTH_SHORT).show();
             }
 
         });

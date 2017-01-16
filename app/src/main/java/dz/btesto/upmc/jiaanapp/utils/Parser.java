@@ -3,7 +3,6 @@ package dz.btesto.upmc.jiaanapp.utils;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.json.JSONArray;
@@ -50,8 +49,6 @@ public class Parser {
         recipe.setTitle(response.optString("title", "N/A"));
         recipe.setPreparationMinutes(response.optInt("preparationMinutes", 0));
         recipe.setInstructions(response.optString("instructions", "N/A"));
-        Log.d("recipetest", recipe.getInstructions());
-        Log.i("TEBBBBBB", recipe.getInstructions());
 
         return recipe;
 

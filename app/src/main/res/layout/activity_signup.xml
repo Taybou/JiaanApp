@@ -16,19 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/background_signup"
-
             android:gravity="center"
             android:orientation="vertical"
             android:padding="@dimen/activity_horizontal_margin">
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Jiaan"
-                android:textColor="@color/colorWhite"
-                android:textSize="25dp" />
-
 
             <ImageView
                 android:layout_width="100dp"

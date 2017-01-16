@@ -45,6 +45,7 @@ public class ByIngredientsRecipesAdapter extends RecyclerView.Adapter<ByIngredie
         TextView title;
         ImageView thumbnail;
         TextView idRecipe;
+        ImageView share;
 
         RecipesViewHolder(View itemView) {
             super(itemView);
@@ -52,6 +53,8 @@ public class ByIngredientsRecipesAdapter extends RecyclerView.Adapter<ByIngredie
             title = (TextView) itemView.findViewById(R.id.title_recipe);
             thumbnail = (ImageView) itemView.findViewById(R.id.thumbnail_recipe);
             idRecipe = (TextView) itemView.findViewById(R.id.idRecipe);
+            share = (ImageView) itemView.findViewById(R.id.shareIv);
+
         }
     }
 
@@ -84,6 +87,21 @@ public class ByIngredientsRecipesAdapter extends RecyclerView.Adapter<ByIngredie
                 Intent intent = new Intent(context, RecipesDetails.class);
                 intent.putExtra("recipeID", recipe.getRecipeId());
                 context.startActivity(intent);
+            }
+        });
+
+        holder.share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(android.content.Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_SUBJECT, recipe.getTitle());
+                share.putExtra(Intent.EXTRA_TITLE, recipe.getTitle());
+                share.putExtra(Intent.EXTRA_TEXT, "#Ji3an" + "\n"
+                        + recipe.getTitle() + "\n"
+                        + "https://goo.gl/01qRhI"
+                        + recipe.getImageUrl());
+                context.startActivity(Intent.createChooser(share, "Share recipe to..."));
             }
         });
     }

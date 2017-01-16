@@ -36,16 +36,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
-
         ImageView ingredientImageView;
-        TextView ingeredientTitle;
-        ImageView addImageview;
+        TextView ingredientTitle;
+        ImageView addImageView;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             this.ingredientImageView = (ImageView) itemView.findViewById(R.id.listview_image);
-            this.ingeredientTitle = (TextView) itemView.findViewById(R.id.ingredientName);
-            this.addImageview = (ImageView) itemView.findViewById(R.id.idIngredientIv);
+            this.ingredientTitle = (TextView) itemView.findViewById(R.id.ingredientName);
+            this.addImageView = (ImageView) itemView.findViewById(R.id.idIngredientIv);
         }
     }
 
@@ -75,22 +74,22 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
                 .centerCrop()
                 .into(holder.ingredientImageView);
 
-        holder.ingeredientTitle.setText(ingredient.getName());
-        if (ingredient.isState()) holder.addImageview.setImageResource(R.drawable.ic_action_add);
-        else holder.addImageview.setImageResource(R.drawable.ic_action_minus);
+        holder.ingredientTitle.setText(ingredient.getName());
+        if (ingredient.isState()) holder.addImageView.setImageResource(R.drawable.ic_action_add);
+        else holder.addImageView.setImageResource(R.drawable.ic_action_minus);
 
-        holder.addImageview.setOnClickListener(new View.OnClickListener() {
+        holder.addImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 if (ingredient.isState()) {
                     ingredient.setState(false);
                     ingredients.put(position, ingredient);
-                    holder.addImageview.setImageResource(R.drawable.ic_action_minus);
+                    holder.addImageView.setImageResource(R.drawable.ic_action_minus);
                 } else {
                     ingredient.setState(true);
                     ingredients.remove(position);
-                    holder.addImageview.setImageResource(R.drawable.ic_action_add);
+                    holder.addImageView.setImageResource(R.drawable.ic_action_add);
                 }
             }
         });

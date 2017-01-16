@@ -106,7 +106,9 @@
                 android:id="@+id/saveBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Save" />
+                android:background="@color/semi_transparent"
+                android:text="Save"
+                android:textColor="@color/colorWhite" />
         </LinearLayout>
 
 
