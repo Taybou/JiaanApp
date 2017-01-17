@@ -37,3 +37,7 @@ Our application offers :
 
 ★ Share a recipe with your loved ones through different applications such as Messenger, Viber, Facebook, etc.
 
+## Contributors
+
+* Nour Elislam SAIDI
+* Mohamed Tayeb BENTERKI
