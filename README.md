@@ -39,13 +39,6 @@ Our application offers :
 
 ## Screen
 
-![alt text](https://drive.google.com/open?id=0B8xW7xS3oyetWDhSZGRYaGZXdGs "")
-![alt text]( "")
-![alt text]( "")
-![alt text]( "")
-
-
-
 ## Contributors
 
 * Nour Elislam SAIDI
