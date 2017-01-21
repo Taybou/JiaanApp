@@ -7,6 +7,8 @@ Android application for food recipes
 We're all afraid of not having enough food or few ingredients. Or do not eat healthy because we do not know how to cook, or how many calories in each meal.
 Now with the Ji3an app, do not look over hundreds of cookbooks. Put your grocery list in our app. And let us give you some recipe suggestions. Taste healthy, hearty and the most insane delicious nibble. Control your diet, depending on how your family eats. Give yourself unique specialties and recipes every day.
 
+We are using [Food and Recipe API](https://spoonacular.com/food-api)
+
 Our application offers :
 
 ★ Register to the application by creating a new account
