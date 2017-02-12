@@ -99,7 +99,6 @@ public class ByNutritionRecipesAdapter extends RecyclerView.Adapter<ByNutritionR
                 share.putExtra(Intent.EXTRA_TITLE, recipe.getTitle());
                 share.putExtra(Intent.EXTRA_TEXT, "#Ji3an" + "\n"
                         + recipe.getTitle() + "\n"
-                        + "https://goo.gl/01qRhI"
                         + recipe.getImageUrl());
                 context.startActivity(Intent.createChooser(share, "Share recipe to..."));
             }
