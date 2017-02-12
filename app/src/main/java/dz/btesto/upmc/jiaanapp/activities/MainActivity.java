@@ -114,7 +114,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             String userName = dataSnapshot.getValue(String.class);
-                            ((TextView) findViewById(R.id.textView)).setText(userName);
+                            TextView userNameTextView = ((TextView) findViewById(R.id.textView));
+                            if (userNameTextView != null) {
+                                userNameTextView.setText(userName);
+                            }
                         }
 
                         @Override
